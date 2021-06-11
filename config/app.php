@@ -177,7 +177,8 @@ return [
         App\Providers\GeneralServiceProvider::class,
 
         // Add New
-
+        Spatie\Permission\PermissionServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
     ],
 
     /*
