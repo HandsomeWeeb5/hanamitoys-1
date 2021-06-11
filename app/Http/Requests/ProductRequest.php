@@ -23,19 +23,33 @@ class ProductRequest extends FormRequest
    */
   public function rules()
   {
+    $qty = 'numeric';
+    $price = 'numeric';
+    $status = '';
+
     if ($this->method() == 'PUT') {
+      $type = '';
       $sku = 'required|unique:products,sku,' . $this->get('id');
       $name = 'required|unique:products,name,' . $this->get('id');
+      $status = 'required';
+
+      if ($this->get('type') == 'simple') {
+        $qty .= '|required';
+        $price .= '|required';
+      }
     } else {
+      $type = 'required';
       $sku = 'required|unique:products,sku';
       $name = 'required|unique:products,name';
     }
 
     return [
+      'type' => $type,
       'sku' => $sku,
       'name' => $name,
-      'price' => 'required|numeric',
-      'status' => 'required',
+      'price' => $price,
+      'qty' => $qty,
+      'status' => $status,
     ];
   }
 }

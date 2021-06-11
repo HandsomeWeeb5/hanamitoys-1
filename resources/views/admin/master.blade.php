@@ -75,6 +75,11 @@
   <script src="{{ asset('assets/admin/plugins/toastr/toastr.min.js') }}"></script>
   <script src="{{ asset('assets/admin/dist/js/adminlte.js') }}"></script>
   @yield('scripts')
+  <script>
+    $(".delete").on("submit", function() {
+      return confirm("Do you want to remove this?");
+    });
+  </script>
 </body>
 
 </html>

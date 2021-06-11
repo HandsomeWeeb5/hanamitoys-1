@@ -7,5 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductInventory extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  protected $fillable = [
+    'product_id',
+    'qty',
+  ];
+
+  public function product()
+  {
+    return $this->belongsTo('App\Models\Product');
+  }
 }

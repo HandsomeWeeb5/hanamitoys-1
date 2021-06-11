@@ -50,10 +50,11 @@
             <tr>
               <th>No</th>
               <th>SKU</th>
+              <th>Tipe</th>
               <th>Nama</th>
               <th>Harga</th>
               <th>Status</th>
-              <th>Aksi</th>
+              <th style="width: 15%;">Aksi</th>
             </tr>
           </thead>
           <tbody>
@@ -61,9 +62,10 @@
             <tr>
               <td>{{ $index + 1 }}</td>
               <td>{{ $product->sku }}</td>
+              <td>{{ $product->type }}</td>
               <td>{{ $product->name }}</td>
-              <td>{{ $product->price }}</td>
-              <td>{{ $product->status }}</td>
+              <td>{{ number_format($product->price) }}</td>
+              <td>{{ $product->status_label() }}</td>
               <td>
                 <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-info btn-sm">Ubah</a>
 
