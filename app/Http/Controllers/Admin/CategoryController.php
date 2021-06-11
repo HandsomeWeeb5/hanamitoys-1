@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoriesRequest;
-use App\Models\Categories;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
   /**
    * Display a listing of the resource.
@@ -17,7 +17,8 @@ class CategoriesController extends Controller
    */
   public function index()
   {
-    $this->data['categories'] = Categories::all();
+    $this->data['categories'] = Category::all();
+
     return view('admin.categories.index', $this->data);
   }
 
@@ -28,12 +29,12 @@ class CategoriesController extends Controller
    */
   public function create()
   {
-    $categories = Categories::all();
+    $categories = Category::orderBy('name', 'asc')->get();
 
-    $this->data['categories'] = $categories;
+    $this->data['categories'] = $categories->toArray();
     $this->data['category'] = null;
 
-    return view('admin.categories.create', $this->data);
+    return view('admin.categories.form', $this->data);
   }
 
   /**
@@ -42,13 +43,13 @@ class CategoriesController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(CategoriesRequest $request)
+  public function store(CategoryRequest $request)
   {
     $params = $request->except('_token');
     $params['slug'] = Str::slug($params['name']);
     $params['parent_id'] = (int)$params['parent_id'];
 
-    if (Categories::create($params)) {
+    if (Category::create($params)) {
       Session::flash('success', 'Category has been saved');
     }
     return redirect('admin/categories');
@@ -57,10 +58,10 @@ class CategoriesController extends Controller
   /**
    * Display the specified resource.
    *
-   * @param  \App\Models\Categories  $categories
+   * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function show(Categories $categories)
+  public function show($id)
   {
     //
   }
@@ -68,13 +69,13 @@ class CategoriesController extends Controller
   /**
    * Show the form for editing the specified resource.
    *
-   * @param  \App\Models\Categories  $categories
+   * @param  int  $id
    * @return \Illuminate\Http\Response
    */
   public function edit($id)
   {
-    $category = Categories::findOrFail($id);
-    $categories = Categories::orderBy('name', 'asc')->get();
+    $category = Category::findOrFail($id);
+    $categories = Category::orderBy('name', 'asc')->get();
 
     $this->data['categories'] = $categories->toArray();
     $this->data['category'] = $category;
@@ -85,16 +86,16 @@ class CategoriesController extends Controller
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
-   * @param  \App\Models\Categories  $categories
+   * @param  int  $id
    * @return \Illuminate\Http\Response
    */
-  public function update(CategoriesRequest $request, $id)
+  public function update(CategoryRequest $request, $id)
   {
     $params = $request->except('_token');
     $params['slug'] = Str::slug($params['name']);
     $params['parent_id'] = (int)$params['parent_id'];
 
-    $category = Categories::findOrFail($id);
+    $category = Category::findOrFail($id);
     if ($category->update($params)) {
       Session::flash('success', 'Category has been updated.');
     }
@@ -105,12 +106,12 @@ class CategoriesController extends Controller
   /**
    * Remove the specified resource from storage.
    *
-   * @param  \App\Models\Categories  $categories
+   * @param  int  $id
    * @return \Illuminate\Http\Response
    */
   public function destroy($id)
   {
-    $category  = Categories::findOrFail($id);
+    $category  = Category::findOrFail($id);
 
     if ($category->delete()) {
       Session::flash('success', 'Category has been deleted');

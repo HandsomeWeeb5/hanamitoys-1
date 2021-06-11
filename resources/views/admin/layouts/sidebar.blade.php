@@ -42,7 +42,7 @@
         </li>
         <li class="nav-header">E - COMMERCE</li>
         <li class="nav-item">
-          <a href="{{ url('admin/categories') }}" class="nav-link {{ (request()->is('admin/categories')) ? 'active' : '' }}">
+          <a href="{{ url('admin/categories') }}" class="nav-link {{ (request()->segment(2) == 'categories') ? 'active' : '' }}">
             <i class="nav-icon fas fa-list-ul"></i>
             <p>
               Kategori
@@ -51,10 +51,19 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ url('admin/products') }}" class="nav-link {{ (request()->is('admin/products')) ? 'active' : '' }}">
+          <a href="{{ url('admin/products') }}" class="nav-link {{ (request()->segment(2) == 'products') ? 'active' : '' }}">
             <i class="nav-icon fas fa-boxes"></i>
             <p>
               Produk
+              <span class="badge badge-info right">2</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/attributes') }}" class="nav-link {{ (request()->segment(2) == 'attributes') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-tag"></i>
+            <p>
+              Atribut
               <span class="badge badge-info right">2</span>
             </p>
           </a>

@@ -44,6 +44,7 @@
         <h3 class="card-title">Data Tabel Kategori</h3>
       </div>
       <div class="card-body">
+        @include('admin.components.flash')
         <table id="dataTable" class="table table-bordered table-striped">
           <thead>
             <tr>
@@ -54,18 +55,18 @@
             </tr>
           </thead>
           <tbody>
-            @foreach($categories as $index => $category)
+            @foreach ($categories as $index => $category)
             <tr>
               <td>{{ $index + 1 }}</td>
               <td>{{ $category->name }}</td>
               <td>{{ $category->parent ? $category->parent->name : 'Tidak Ada Induk' }}</td>
               <td>
-                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info btn-sm">Ubah</a>
-                <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline-block;">
-                  @csrf
-                  {{ method_field('DELETE') }}
-                  <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                </form>
+                <a href="{{ url('admin/categories/'. $category->id .'/edit') }}" class="btn btn-warning btn-sm">Ubah</a>
+
+                {!! Form::open(['url' => 'admin/categories/'. $category->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                {!! Form::hidden('_method', 'DELETE') !!}
+                {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
+                {!! Form::close() !!}
               </td>
             </tr>
             @endforeach

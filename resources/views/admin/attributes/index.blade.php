@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Produk')
+@section('title', 'Atribut')
 
 @section('css')
 {{-- DataTable --}}
@@ -16,19 +16,19 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Produk</h1>
+        <h1 class="m-0">Atribut</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
-          <li class="breadcrumb-item active">Produk</li>
+          <li class="breadcrumb-item active">Atribut</li>
         </ol>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
         <div class="float-sm-right">
-          <a href="{{ route('products.create') }}" class="btn btn-success">Tambah Produk</a>
+          <a href="{{ route('attributes.create') }}" class="btn btn-success">Tambah Atribut</a>
           <!-- <button type="button" class="btn btn-danger btn-sm">Tempat Sampah</button> -->
         </div>
       </div>
@@ -41,35 +41,33 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Data Tabel Produk</h3>
+        <h3 class="card-title">Data Tabel Atribut</h3>
       </div>
       <div class="card-body">
         @include('admin.components.flash')
         <table id="dataTable" class="table table-bordered table-striped">
           <thead>
-            <tr>
-              <th>No</th>
-              <th>SKU</th>
-              <th>Nama</th>
-              <th>Harga</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
+            <th>No</th>
+            <th>Kode</th>
+            <th>Nama</th>
+            <th>Tipe</th>
+            <th>Aksi</th>
           </thead>
           <tbody>
-            @foreach ($products as $index => $product)
+            @foreach ($attributes as $index => $attribute)
             <tr>
-              <td>{{ $index + 1 }}</td>
-              <td>{{ $product->sku }}</td>
-              <td>{{ $product->name }}</td>
-              <td>{{ $product->price }}</td>
-              <td>{{ $product->status }}</td>
+              <td>{{ $index }}</td>
+              <td>{{ $attribute->code }}</td>
+              <td>{{ $attribute->name }}</td>
+              <td>{{ $attribute->type }}</td>
               <td>
-                <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-info btn-sm">Ubah</a>
-
-                {!! Form::open(['url' => 'admin/products/'. $product->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                <a href="{{ url('admin/attributes/'. $attribute->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
+                @if ($attribute->type == 'select')
+                <a href="{{ url('admin/attributes/'. $attribute->id .'/options') }}" class="btn btn-success btn-sm">options</a>
+                @endif
+                {!! Form::open(['url' => 'admin/attributes/'. $attribute->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}
-                {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
+                {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
                 {!! Form::close() !!}
               </td>
             </tr>

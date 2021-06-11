@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProductsRequest extends FormRequest
+class AttributeRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -24,18 +24,17 @@ class ProductsRequest extends FormRequest
   public function rules()
   {
     if ($this->method() == 'PUT') {
-      $sku = 'required|unique:products,sku,' . $this->get('id');
-      $name = 'required|unique:products,name,' . $this->get('id');
+      $code = 'required|unique:attributes,code,' . $this->get('id');
+      $name = 'required|unique:attributes,name,' . $this->get('id');
     } else {
-      $sku = 'required|unique:products,sku';
-      $name = 'required|unique:products,name';
+      $code = 'required|unique:attributes,code';
+      $name = 'required|unique:attributes,name';
     }
 
     return [
-      'sku' => $sku,
+      'code' => $code,
       'name' => $name,
-      'price' => 'required|numeric',
-      'status' => 'required',
+      'type' => 'required',
     ];
   }
 }

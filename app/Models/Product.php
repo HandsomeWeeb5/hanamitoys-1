@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class Product extends Model
 {
   use HasFactory;
-
-  protected $table = 'products';
   protected $fillable = [
     'user_id',
     'sku',
@@ -29,6 +27,11 @@ class Products extends Model
   public function categories()
   {
     return $this->belongsToMany('App\Models\Category', 'product_categories');
+  }
+
+  public function productImages()
+  {
+    return $this->hasMany('App\Models\ProductImage');
   }
 
   public static function statuses()
