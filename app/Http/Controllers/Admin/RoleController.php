@@ -4,83 +4,106 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $roles = Role::all();
+    $permissions = Permission::all();
+
+    return view('admin.roles.index', compact('roles', 'permissions'));
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function create()
+  {
+    //
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @return \Illuminate\Http\Response
+   */
+  public function store(Request $request)
+  {
+    $this->validate($request, ['name' => 'required|unique:roles']);
+
+    if (Role::create($request->only('name'))) {
+      Session::flash('successs', 'New role added.');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    return redirect('admin/roles');
+  }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param  \App\Models\Role  $role
+   * @return \Illuminate\Http\Response
+   */
+  public function show(Role $role)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   *
+   * @param  \App\Models\Role  $role
+   * @return \Illuminate\Http\Response
+   */
+  public function edit(Role $role)
+  {
+    //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   *
+   * @param  \Illuminate\Http\Request  $request
+   * @param  \App\Models\Role  $role
+   * @return \Illuminate\Http\Response
+   */
+  public function update(Request $request, Role $role)
+  {
+    Session::flash('success', $role->name . ' permissions has been updated.');
+
+    if ($role->name == 'Admin') {
+      $role->syncPermissions(Permission::all());
+
+      return redirect('admin/roles');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    $permissions = $request->get('permissions', []);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
-    {
-        //
-    }
+    $role->syncPermissions($permissions);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Role $role)
-    {
-        //
-    }
+    return redirect('admin/roles');
+  }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Role $role)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
-    {
-        //
-    }
+  /**
+   * Remove the specified resource from storage.
+   *
+   * @param  \App\Models\Role  $role
+   * @return \Illuminate\Http\Response
+   */
+  public function destroy(Role $role)
+  {
+    //
+  }
 }

@@ -49,7 +49,7 @@ $formTitle = !empty($category) ? 'Ubah' : 'Tambah'
           </div>
           <div class="form-group">
             {!! Form::label('parent_id', 'Induk') !!}
-            {!! General::selectMultiLevel('parent_id', $categories, ['class' => 'form-control', 'id' => 'parent_id', 'selected' => (!empty(old('parent_id')) ? old('parent_id') : !empty($category['parent_id'])) ? $category['parent_id'] : '', 'placeholder' => '-- Pilih Kategori --']) !!}
+            {!! General::selectMultiLevel('parent_id', $categories, ['class' => 'form-control', 'id' => 'parent_id', 'selected' => !empty(old('parent_id')) ? old('parent_id') : (!empty($category['parent_id']) ? $category['parent_id'] : ''), 'placeholder' => '-- Pilih Kategori --']) !!}
           </div>
           <div class="form-footer text-center pt-3 border-top">
             <button type="submit" class="btn btn-primary">{{ $formTitle }}</button>

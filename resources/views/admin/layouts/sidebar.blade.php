@@ -68,6 +68,25 @@
             </p>
           </a>
         </li>
+        <li class="nav-header">PENGATURAN</li>
+        <li class="nav-item">
+          <a href="{{ url('admin/users') }}" class="nav-link {{ (request()->segment(2) == 'users') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>
+              User
+              <span class="badge badge-info right">2</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/roles') }}" class="nav-link {{ (request()->segment(2) == 'roles') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-key"></i>
+            <p>
+              Role
+              <span class="badge badge-info right">2</span>
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

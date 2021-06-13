@@ -46,6 +46,12 @@ Route::prefix('admin')->middleware('role:admin')->group(function () {
   Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option')->name('attributes.remove_option');
   Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option')->name('attributes.edit_option');
   Route::put('attributes/options/{optionID}', 'AttributeController@update_option')->name('attributes.update_option');
+
+  // Roles
+  Route::resource('roles', 'RoleController');
+
+  // Users
+  Route::resource('users', 'UserController');
 });
 
 Auth::routes();
