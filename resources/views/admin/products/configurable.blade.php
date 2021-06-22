@@ -27,6 +27,12 @@
       {!! Form::text('variants['. $variant->id .'][qty]', ($variant->productInventory) ? $variant->productInventory->qty : null, ['class' => 'form-control', 'required' => true]) !!}
     </div>
   </div>
+  <div class="col-md-2">
+    <div class="form-group">
+      {!! Form::label('weight', 'Weight') !!}
+      {!! Form::text('variants['. $variant->id .'][weight]', $variant->weight, ['class' => 'form-control', 'required' => true]) !!}
+    </div>
+  </div>
 </div>
 @endforeach
 <hr />

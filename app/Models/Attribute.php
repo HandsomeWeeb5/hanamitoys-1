@@ -17,7 +17,7 @@ class Attribute extends Model
     'is_required',
     'is_unique',
     'is_filterable',
-    'is_configurable',
+    'is_configurable'
   ];
 
   public static function types()

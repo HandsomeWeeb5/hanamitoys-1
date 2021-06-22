@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
       $table->string('name');
       $table->string('slug');
       $table->decimal('price', 15, 2);
+      $table->decimal('weight', 10, 2);
       $table->text('short_description');
       $table->text('description');
       $table->integer('status');

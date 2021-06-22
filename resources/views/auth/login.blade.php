@@ -1,5 +1,7 @@
 @extends('customer.master')
 
+@section('title', ' | Login')
+
 @section('content')
 <div class="container content-container-login px-4 m-auto">
   <div class="login-box text-center">
@@ -7,7 +9,7 @@
     {!! Form::open(['route' => 'login']) !!}
     <div class="form-group">
       {!! Form::label('email', 'Email') !!}
-      <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+      <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Masukan Email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
       @error('email')
       <span class="invalid-feedback" role="alert">
@@ -40,7 +42,7 @@
     </p>
     @endif
     <button class="btn login-btn" type="submit">LOGIN</button>
-    <a class="btn register-btn" href="register.html">REGISTER</a>
+    <a class="btn register-btn" href="{{ route('register') }}">REGISTER</a>
     {!! Form::close() !!}
   </div>
 </div>

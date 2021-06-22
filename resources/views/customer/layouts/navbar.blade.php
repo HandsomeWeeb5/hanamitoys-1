@@ -65,7 +65,7 @@
         </li>
         @auth
         <li class="nav-item {{ (request()->segment(1) == 'account') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('account') }}">{{ auth()->user()->name }}</a>
+          <a class="nav-link" href="{{ route('account') }}">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
         </li>
         @endauth
       </ul>

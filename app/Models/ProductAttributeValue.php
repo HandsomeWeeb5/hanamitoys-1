@@ -18,7 +18,7 @@ class ProductAttributeValue extends Model
     'float_value',
     'datetime_value',
     'date_value',
-    'json_value',
+    'json_value'
   ];
 
   public function product()

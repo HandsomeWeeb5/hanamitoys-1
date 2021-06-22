@@ -9,10 +9,7 @@ class ProductInventory extends Model
 {
   use HasFactory;
 
-  protected $fillable = [
-    'product_id',
-    'qty',
-  ];
+  protected $fillable = ['product_id', 'qty'];
 
   public function product()
   {

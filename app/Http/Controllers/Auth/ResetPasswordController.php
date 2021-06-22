@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
     |--------------------------------------------------------------------------
@@ -19,12 +19,25 @@ class ResetPasswordController extends Controller
     |
     */
 
-    use ResetsPasswords;
+  use ResetsPasswords;
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
+  /**
+   * Where to redirect users after resetting their password.
+   *
+   * @var string
+   */
+  protected $redirectTo = RouteServiceProvider::HOME;
+
+
+  // public function showResetForm(Request $request, $token = null)
+  // {
+  //   if (is_null($token)) {
+  //     return $this->getEmail();
+  //   }
+
+  //   $this->data['email'] = $request->input('email');
+  //   $this->data['token'] = $token;
+
+  //   return $this->load_theme('auth.password.reset', $this->data);
+  // }
 }

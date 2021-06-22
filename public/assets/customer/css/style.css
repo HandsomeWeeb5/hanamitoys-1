@@ -636,45 +636,206 @@ div .navbar-nav .nav-item .nav-link .icon-container img {
 }
 
 /*=========== PROCEED-PAYMENT PAGE =========*/
-.title-page {
+.ptb-100 {
+    padding: 100px 0;
+}
+
+.checkbox-form h3 {
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 25px;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.checkout-form-list {
+    margin-bottom: 30px;
+}
+
+.country-select label,
+.checkout-form-list label {
+    color: #333;
+    margin: 0 0 5px;
+    display: block;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+checkout-form-list label {
+    color: #333;
+}
+
+.country-select label span.required,
+.checkout-form-list label span.required {
+    color: red;
+}
+
+.checkout-form-list input[type="text"],
+.checkout-form-list input[type="password"],
+.checkout-form-list input[type="email"],
+.checkout-form-list input[type="number"] {
+    background: #fff none repeat scroll 0 0;
+    border: 1px solid #e5e5e5;
+    border-radius: 0;
+    height: 42px;
+    width: 100%;
+    padding: 0 0 0 10px;
+    box-shadow: none;
+    font-size: 14px;
+    color: #626262;
+}
+
+.checkout-form-list input[type="number"] {
+    height: 32px;
+}
+
+.checkbox-form select {
+    width: 100%;
+    background: #eceff8;
+    border: 2px solid #eceff8;
+    height: 45px;
+    padding-left: 10px;
+    box-shadow: none;
+    font-size: 14px;
+    color: #626262;
+}
+
+.checkbox-form #province-id,
+.checkbox-form #city-id,
+.checkbox-form #shipping-province,
+.checkbox-form #shipping-city {
+    -moz-appearance: none;
+    border: 1px solid #ddd;
+    height: 32px;
+    padding-left: 10px;
+    width: 100%;
+    background-color: transparent;
+}
+
+.checkbox-form textarea {
+    resize: vertical;
+    background: #eceff8;
+    border: 2px solid #eceff8;
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.order-notes textarea {
+    background-color: transparent;
+    border: 1px solid #ddd;
+    height: 90px;
+    padding: 15px;
+    width: 100%;
+}
+
+.your-order {
+    background: #f2f2f2 none repeat scroll 0 0;
+    padding: 30px 40px 45px;
+}
+
+.your-order h3 {
+    border-bottom: 1px solid #d8d8d8;
+    font-size: 25px;
+    margin: 0 0 20px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.your-order-table table {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    width: 100%;
+}
+
+.your-order-table table thead {
+    background-color: #f6f6f6;
+}
+
+.your-order-table table th,
+.your-order-table table td {
+    border-bottom: 1px solid #d8d8d8;
+    border-right: medium none;
+    font-size: 14px;
+    padding: 15px 0;
     text-align: center;
-    font-weight: bold;
 }
 
-.transaction-form-box {
-    margin-top: 10px;
-    margin-left: 145px;
-    margin-right: 145px;
-    padding-bottom: 20px;
+.your-order-table table th {
+    border-top: medium none;
+    font-weight: normal;
+    text-align: center;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: 250px;
 }
 
-.transaction-form-box #total-price {
-    color: green;
+.your-order-table table .order-total th {
+    border-bottom: medium none;
+    font-size: 18px;
+}
+
+.your-order-table table .order-total td {
+    border-bottom: medium none;
+}
+
+.your-order-table table tr.order-total td span {
+    color: #464646;
     font-size: 20px;
 }
 
-.transaction-form-box .form-control {
-    border: 1px solid #9e9e9e !important;
+.payment-method {
+    margin-top: 40px;
 }
 
-.total-all-display #total-price {
-    font-size: 27px;
-    color: #ff5d02;
+.panel.panel-default {
+    margin-bottom: 20px;
 }
 
-.transaction-form-box .button-wrap {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-    -ms-flex-pack: end;
-    justify-content: flex-end;
+.panel.panel-default .panel-body {
+    padding: 0;
 }
 
-.transaction-form-box .button-wrap button {
-    margin-left: 3px;
-    margin-right: 3px;
-    margin-bottom: 8px;
+.panel-body > p {
+    color: #666;
+}
+
+h5.panel-title {
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+h5.panel-title a {
+    color: inherit;
+}
+
+h5.panel-title a:focus,
+h5.panel-title a:hover {
+    text-decoration: none;
+}
+
+.order-button-payment input {
+    background: #3b1cff none repeat scroll 0 0;
+    border: medium none;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    height: 50px;
+    margin: 20px 0 0;
+    padding: 0;
+    text-transform: uppercase;
+    transition: all 0.3s ease 0s;
+    width: 100%;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.order-button-payment input:hover {
+    background: #745fff;
 }
 
 /*=============== TRANSACTION LIST ============*/

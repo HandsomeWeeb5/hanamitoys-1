@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,15 @@ Route::get('/carts', [CartController::class, 'index']);
 Route::get('/carts/remove/{cartID}', [CartController::class, 'destroy']);
 Route::post('/carts', [CartController::class, 'store']);
 Route::post('/carts/update', [CartController::class, 'update']);
+
+// Order
+Route::get('orders/checkout', [OrderController::class, 'checkout']);
+Route::post('orders/checkout', [OrderController::class, 'doCheckout']);
+Route::post('orders/shipping-cost', [OrderController::class, 'shippingCost']);
+Route::post('orders/set-shipping', [OrderController::class, 'setShipping']);
+Route::get('orders/complete', [OrderController::class, 'complete']);
+Route::get('orders/invoice', [OrderController::class, 'invoice']);
+Route::get('orders/cities', [OrderController::class, 'cities']);
 
 // About
 Route::get('/about', [AboutController::class, 'index'])->name('about');
