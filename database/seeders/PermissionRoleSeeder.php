@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
+use App\Models\Permission;
+use App\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
 class PermissionRoleSeeder extends Seeder
@@ -20,14 +20,14 @@ class PermissionRoleSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        // Permission::create(['name' => 'view_categories']);
-        // Permission::create(['name' => 'add_categories']);
-        // Permission::create(['name' => 'edit_categories']);
-        // Permission::create(['name' => 'delete_categories']);
+        Permission::create(['name' => 'view_categories']);
+        Permission::create(['name' => 'add_categories']);
+        Permission::create(['name' => 'edit_categories']);
+        Permission::create(['name' => 'delete_categories']);
 
         // create roles and assign existing permissions
-        $admin = Role::create(['name' => 'admin']);
-        $customer = Role::create(['name' => 'customer']);
+        $admin = Role::create(['name' => 'Admin']);
+        $customer = Role::create(['name' => 'Customer']);
         // $admin->givePermissionTo('view_categories');
         // $admin->givePermissionTo('add_categories');
         // $admin->givePermissionTo('edit_categories');

@@ -64,7 +64,7 @@
               <td>{{ $product->sku }}</td>
               <td>{{ $product->type }}</td>
               <td>{{ $product->name }}</td>
-              <td>{{ number_format($product->price) }}</td>
+              <td>@currency($product->price)</td>
               <td>{{ $product->status_label() }}</td>
               <td>
                 <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-info btn-sm">Ubah</a>

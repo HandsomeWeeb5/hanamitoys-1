@@ -120,17 +120,18 @@ class ProductController extends Controller
         $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
         $newProductVariant->categories()->sync($categoryIds);
 
-        $this->saveProductAttributeValues($newProductVariant, $variant);
+        $this->saveProductAttributeValues($newProductVariant, $variant, $product->id);
       }
     }
   }
 
-  private function saveProductAttributeValues($product, $variant)
+  private function saveProductAttributeValues($product, $variant, $parentProductID)
   {
     foreach (array_values($variant) as $attributeOptionID) {
       $attributeOption = AttributeOption::find($attributeOptionID);
 
       $attributeValueParams = [
+        'parent_product_id' => $parentProductID,
         'product_id' => $product->id,
         'attribute_id' => $attributeOption->attribute_id,
         'text_value' => $attributeOption->name,
@@ -336,6 +337,7 @@ class ProductController extends Controller
   public function remove_image($id)
   {
     $image = ProductImage::findOrFail($id);
+    unlink(public_path('storage/' . $image->path));
 
     if ($image->delete()) {
       Session::flash('success', 'Image has been deleted');

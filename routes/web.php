@@ -1,9 +1,17 @@
 <?php
 
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,11 +26,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-  return view('welcome');
-})->name('user.page');
+// Customer
+// Index or Home
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('admin')->middleware('role:admin')->group(function () {
+// Product
+Route::get('/products', [ProductController::class, 'index'])->name('cproducts.index');
+Route::get('/products/{slug}', [ProductController::class, 'show'])->name('cproducts.show');
+
+// Cart
+Route::get('/carts', [CartController::class, 'index']);
+Route::get('/carts/remove/{cartID}', [CartController::class, 'destroy']);
+Route::post('/carts', [CartController::class, 'store']);
+Route::post('/carts/update', [CartController::class, 'update']);
+
+// About
+Route::get('/about', [AboutController::class, 'index'])->name('about');
+
+// Contact
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
+// Account
+Route::get('/account', [AccountController::class, 'index'])->name('account')->middleware('auth');
+
+// Admin
+Route::prefix('admin')->middleware('auth', 'role:Admin')->group(function () {
 
   // Dashboard
   Route::get('/', [DashboardController::class, 'index'])->name('admin.page');
@@ -32,28 +60,26 @@ Route::prefix('admin')->middleware('role:admin')->group(function () {
   Route::resource('categories', CategoryController::class);
 
   // Products
-  Route::resource('products', ProductController::class);
-  Route::get('products/{productID}/images', [ProductController::class, 'images'])->name('products.images');
-  Route::get('products/{productID}/add-image', [ProductController::class, 'add_image'])->name('products.add_image');
-  Route::post('products/images/{productID}', [ProductController::class, 'upload_image'])->name('products.upload_image');
-  Route::delete('products/images/{imageID}', [ProductController::class, 'remove_image'])->name('products.remove_image');
+  Route::resource('products', AdminProductController::class);
+  Route::get('products/{productID}/images', [AdminProductController::class, 'images'])->name('products.images');
+  Route::get('products/{productID}/add-image', [AdminProductController::class, 'add_image'])->name('products.add_image');
+  Route::post('products/images/{productID}', [AdminProductController::class, 'upload_image'])->name('products.upload_image');
+  Route::delete('products/images/{imageID}', [AdminProductController::class, 'remove_image'])->name('products.remove_image');
 
   // Attributes
   Route::resource('attributes', AttributeController::class);
   Route::get('attributes/{attributeID}/options', [AttributeController::class, 'options'])->name('attributes.options');
   Route::get('attributes/{attributeID}/add-option', [AttributeController::class, 'add_option'])->name('attributes.add_option');
-  Route::post('attributes/options/{attributeID}', 'AttributeController@store_option')->name('attributes.store_option');
-  Route::delete('attributes/options/{optionID}', 'AttributeController@remove_option')->name('attributes.remove_option');
-  Route::get('attributes/options/{optionID}/edit', 'AttributeController@edit_option')->name('attributes.edit_option');
-  Route::put('attributes/options/{optionID}', 'AttributeController@update_option')->name('attributes.update_option');
+  Route::post('attributes/options/{attributeID}', [AttributeController::class, 'store_option'])->name('attributes.store_option');
+  Route::delete('attributes/options/{optionID}', [AttributeController::class, 'remove_option'])->name('attributes.remove_option');
+  Route::get('attributes/options/{optionID}/edit', [AttributeController::class, 'edit_option'])->name('attributes.edit_option');
+  Route::put('attributes/options/{optionID}', [AttributeController::class, 'update_option'])->name('attributes.update_option');
 
   // Roles
-  Route::resource('roles', 'RoleController');
+  Route::resource('roles', RoleController::class);
 
   // Users
-  Route::resource('users', 'UserController');
+  Route::resource('users', UserController::class);
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

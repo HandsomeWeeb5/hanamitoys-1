@@ -1,6 +1,14 @@
-@extends('admin.layout')
+@extends('admin.master')
 
-@section('title', 'Roles & Permissions')
+@section('title', 'Role & Permission')
+
+@section('css')
+{{-- DataTable --}}
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/admin/plugins/toastr/toastr.min.css') }}">
+@endsection
 
 @section('content')
 <!-- Modal -->
@@ -31,39 +39,59 @@
     </div>
   </div>
 </div>
-<div class="content">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="card card-default">
-        <div class="card-header card-header-border-bottom">
-          <h2>Roles and Permissions</h2>
-        </div>
-        <div class="card-body">
-          @include('admin.partials.flash')
-          <div id="accordion-role-permission" class="accordion accordion-bordered ">
-            @forelse ($roles as $role)
-            {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update', $role->id ], 'class' => 'm-b']) !!}
 
-            @if($role->name === 'Admin')
-            @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'options' => ['disabled'], 'showButton' => true])
-            @else
-            @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'model' => $role, 'showButton' => true])
-            @endif
-
-            {!! Form::close() !!}
-
-            @empty
-            <p>No Roles defined, please run <code>php artisan db:seed</code> to seed some dummy data.</p>
-            @endforelse
-          </div>
+{{-- Content Header (Page Hedaer) --}}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0">Role & Permission</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
+          <li class="breadcrumb-item active">Role & Permission</li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="float-sm-right">
+          <a href="#" class="btn btn-success" data-toggle="modal" data-target="#roleModal">Tambah Role</a>
+          <!-- <button type="button" class="btn btn-danger btn-sm">Tempat Sampah</button> -->
         </div>
-        @can('add_roles')
-        <div class="card-footer text-right">
-          <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#roleModal"> <i class="glyphicon glyphicon-plus"></i> New Role</a>
-        </div>
-        @endcan
       </div>
     </div>
   </div>
 </div>
+
+{{-- Main Content --}}
+<section class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Data Role dan Permission</h3>
+      </div>
+      <div class="card-body">
+        @include('admin.components.flash')
+        <div id="accordion-role-permission" class="accordion accordion-bordered ">
+          @forelse ($roles as $role)
+          {!! Form::model($role, ['method' => 'PUT', 'route' => ['roles.update', $role->id ], 'class' => 'm-b']) !!}
+
+          @if($role->name === 'admin')
+          @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'options' => ['disabled'], 'showButton' => true])
+          @else
+          @include('admin.roles._permissions', ['title' => $role->name .' Permissions', 'model' => $role, 'showButton' => true])
+          @endif
+
+          {!! Form::close() !!}
+
+          @empty
+          <p>No Roles defined, please run <code>php artisan db:seed</code> to seed some dummy data.</p>
+          @endforelse
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 @endsection

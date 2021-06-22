@@ -179,6 +179,7 @@ return [
         // Add New
         Laracasts\Flash\FlashServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        Darryldecode\Cart\CartServiceProvider::class,
     ],
 
     /*
@@ -234,7 +235,7 @@ return [
 
         // Add New
         'General' => App\Helpers\General::class,
-
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
     ],
 
 ];
