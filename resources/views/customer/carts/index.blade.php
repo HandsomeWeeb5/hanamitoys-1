@@ -3,7 +3,7 @@
 @section('title', ' | Carts')
 
 @section('content')
-<div class="container" style="background-color: white;">
+<div class="container " style="background-color: white; padding-bottom: 2rem;">
   <div class="shopping-cart-box">
     {!! Form::open(['url' => 'carts/update']) !!}
     <div class="row">
@@ -69,13 +69,13 @@
     </div>
     <div class="row">
       <div class="col-md-5 ml-auto">
-        <div class="cart-page-total">
-          <h2>Cart totals</h2>
-          <ul>
-            <li>Subtotal<span>{{ number_format(\Cart::getSubTotal()) }}</span></li>
-            <li>Total<span>{{ number_format(\Cart::getTotal()) }}</span></li>
+        <div style="padding-top: 50px;">
+          <h2 style="font-size: 25px; font-weight: 700; margin-bottom: 20px; text-transform: capitalize;">Cart totals</h2>
+          <ul style="border: 1px solid #ddd; padding: 0; margin: 0;">
+            <li style="border-bottom: 1px solid #ddd; color: #555; font-size: 15px; font-weight: bold; padding: 10px 30px; list-style: none;">Subtotal<span style="float: right;">{{ number_format(\Cart::getSubTotal()) }}</span></li>
+            <li style="border-bottom: none; color: #555; font-size: 15px; font-weight: bold; padding: 10px 30px; list-style: none;">Total<span style="float: right;">{{ number_format(\Cart::getTotal()) }}</span></li>
           </ul>
-          <a class="btn btn-success" href="#">Proceed to checkout</a>
+          <a class="btn btn-success mt-4" href="#">Proceed to checkout</a>
         </div>
       </div>
     </div>
