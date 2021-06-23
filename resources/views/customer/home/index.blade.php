@@ -87,15 +87,19 @@
                 @if ($product->productImages->first())
                 <img class="img-fluid" src="{{ asset('storage/'.$product->productImages->first()->path) }}" alt="{{ $product->name }}">
                 @endif
-                <a href="#" class="adtocart">
+                {!! Form::open(['url' => 'carts']) !!}
+                {{ Form::hidden('product_id', $product->id) }}
+                {{ Form::hidden('qty', 1) }}
+                <button href="{{ url('carts') }}" class="adtocart">
                   <i class="fa fa-shopping-cart"></i>
-                </a>
+                </button>
+                {!! Form::close() !!}
               </div>
 
               <div class="panel-body text-center">
                 <h4>
-                  <a href="#" class="pro-title">
-                    {{ $product->name }}
+                  <a href="{{ url('products/'. $product->slug) }}" class="pro-title">
+                    {{ Str::limit($product->name, 25) }}
                   </a>
                 </h4>
                 <p class="price">@currency($product->price_label())</p>

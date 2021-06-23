@@ -389,8 +389,19 @@ div .navbar-nav .nav-item .nav-link .icon-container img {
     text-align: center;
 }
 
+.product-list section {
+    -webkit-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 20px -5px rgba(0, 0, 0, 0.75);
+    border-radius: 1rem;
+}
+
 .product-list .pro-img-box {
     position: relative;
+}
+
+.product-list .pro-img-box img {
+    border-radius: 1rem 1rem 0 0;
 }
 
 .adtocart {
@@ -561,52 +572,47 @@ div .navbar-nav .nav-item .nav-link .icon-container img {
 }
 
 /*================ SHOPPING CART PAGE ===================*/
-.shopping-cart-box {
-    padding-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
+.page-carts {
+    background-color: white;
 }
 
-.header-display {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    margin-top: 10px;
-}
-
-.header-display .item-count-display {
+.item-count-display {
     font-size: 18px;
     color: #260dbc;
-    margin-left: 625px;
 }
 
-.delete-item-button {
-    border: none;
-    background: none;
+.total {
+    padding-top: 2rem;
 }
 
-.delete-item-button:hover {
-    background-color: #aaa5a5;
-    border-radius: 10px;
-    cursor: pointer;
+.total-title {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: capitalize;
 }
 
-.delete-item-icon {
-    width: 28px;
-    height: 28px;
+.total ul {
+    border: 1px solid #ddd;
+    padding: 0;
+    margin: 0;
 }
 
-.total-payment-display {
-    margin-top: 10px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+.total ul li {
+    border-bottom: 1px solid #ddd;
+    color: #555;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 30px;
+    list-style: none;
 }
 
-.total-payment-display #total-price {
-    font-size: 27px;
-    color: #260dbc;
-    margin-left: 700px;
+.total ul li:last-child {
+    border-bottom: none;
+}
+
+.total ul li span {
+    float: right;
 }
 
 .btn-custom {
@@ -704,7 +710,8 @@ checkout-form-list label {
 .checkbox-form #province-id,
 .checkbox-form #city-id,
 .checkbox-form #shipping-province,
-.checkbox-form #shipping-city {
+.checkbox-form #shipping-city,
+#shipping-cost-option {
     -moz-appearance: none;
     border: 1px solid #ddd;
     height: 32px;

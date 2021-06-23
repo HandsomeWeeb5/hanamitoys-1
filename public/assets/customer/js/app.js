@@ -89,4 +89,8 @@ function getShippingCostOptions(city_id) {
 		});
 	});
 
+	/*--- showlogin toggle function ----*/
+	$('#ship-box').on('click', function() {
+  	$('#ship-box-info').slideToggle(1000);
+  });
 })(jQuery); 

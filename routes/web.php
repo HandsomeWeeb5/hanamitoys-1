@@ -32,14 +32,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Product
-Route::get('/products', [ProductController::class, 'index'])->name('cproducts.index');
-Route::get('/products/{slug}', [ProductController::class, 'show'])->name('cproducts.show');
+Route::get('products', [ProductController::class, 'index'])->name('cproducts.index');
+Route::get('products/categories', [ProductController::class, 'categories']);
+Route::get('products/{slug}', [ProductController::class, 'show'])->name('cproducts.show');
 
 // Cart
-Route::get('/carts', [CartController::class, 'index']);
-Route::get('/carts/remove/{cartID}', [CartController::class, 'destroy']);
-Route::post('/carts', [CartController::class, 'store']);
-Route::post('/carts/update', [CartController::class, 'update']);
+Route::get('carts', [CartController::class, 'index']);
+Route::get('carts/remove/{cartID}', [CartController::class, 'destroy']);
+Route::post('carts', [CartController::class, 'store']);
+Route::post('carts/update', [CartController::class, 'update']);
 
 // Order
 Route::get('orders/checkout', [OrderController::class, 'checkout']);
@@ -51,13 +52,13 @@ Route::get('orders/invoice', [OrderController::class, 'invoice']);
 Route::get('orders/cities', [OrderController::class, 'cities']);
 
 // About
-Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('about', [AboutController::class, 'index'])->name('about');
 
 // Contact
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('contact', [ContactController::class, 'index'])->name('contact');
 
 // Account
-Route::get('/account', [AccountController::class, 'index'])->name('account')->middleware('auth');
+Route::get('account', [AccountController::class, 'index'])->name('account')->middleware('auth');
 
 // Admin
 Route::prefix('admin')->middleware('auth', 'role:Admin')->group(function () {

@@ -81,7 +81,7 @@
                   <input id="ship-box" type="checkbox" />
                 </h3>
               </div>
-              <div id="ship-box-info">
+              <div id="ship-box-info" style="display: none;">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="checkout-form-list">
@@ -249,4 +249,8 @@
     <!-- checkout-area end -->
   </div>
 </div>
+@endsection
+
+@section('script')
+<script src="{{ asset('assets/customer/js/app.js') }}"></script>
 @endsection

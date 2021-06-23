@@ -39,5 +39,3 @@ window.onclick = function(event){
     }
   }
 }
-
-// For quantity box

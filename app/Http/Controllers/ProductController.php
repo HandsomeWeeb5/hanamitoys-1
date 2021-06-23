@@ -68,8 +68,8 @@ class ProductController extends Controller
       $this->data['q'] = $q;
     }
 
-    if ($categorySlug = $request->query('as')) {
-      $category = Category::where('slug', $categorySlug)->firstOrFail();
+    if ($categoryId = $request->query('as')) {
+      $category = Category::where('id', $categoryId)->firstOrFail();
 
       $childIds = Category::childIds($category->id);
       $categoryIds = array_merge([$category->id], $childIds);
@@ -78,11 +78,11 @@ class ProductController extends Controller
         $query->whereIn('categories.id', $categoryIds);
       });
 
-      $this->data['as'] = $categorySlug;
+      $this->data['as'] = $categoryId;
     }
 
-    if ($categorySlug = $request->query('cn')) {
-      $category = Category::where('slug', $categorySlug)->firstOrFail();
+    if ($categoryId = $request->query('cn')) {
+      $category = Category::where('id', $categoryId)->firstOrFail();
 
       $childIds = Category::childIds($category->id);
       $categoryIds = array_merge([$category->id], $childIds);
@@ -91,7 +91,7 @@ class ProductController extends Controller
         $query->whereIn('categories.id', $categoryIds);
       });
 
-      $this->data['cn'] = $categorySlug;
+      $this->data['cn'] = $categoryId;
     }
 
     return $products;
@@ -183,10 +183,9 @@ class ProductController extends Controller
     return view('customer.products.show', $this->data);
   }
 
-  public function getCharacterName($slug)
+  public function categories(Request $request)
   {
-    $character['data'] = Category::orderBy('name')->select('slug', 'name')->where('slug', $slug)->get();
-
-    return response()->json($character);
+    $cn = Category::where('parent_id', $request->query('as'))->get();
+    return response()->json(['cn' => $cn]);
   }
 }

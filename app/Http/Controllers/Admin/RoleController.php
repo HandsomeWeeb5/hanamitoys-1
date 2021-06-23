@@ -83,7 +83,7 @@ class RoleController extends Controller
   {
     Session::flash('success', $role->name . ' permissions has been updated.');
 
-    if ($role->name == 'Admin') {
+    if ($role->name == 'admin') {
       $role->syncPermissions(Permission::all());
 
       return redirect('admin/roles');

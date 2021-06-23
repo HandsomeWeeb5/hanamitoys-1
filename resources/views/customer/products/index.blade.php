@@ -17,7 +17,7 @@
               <select class="form-control" name="as" id="as">
                 <option value="">-- Pilih --</option>
                 @foreach($categories as $category)
-                <option value="{{ $category->slug }}" {{ $category->slug == $as ? 'selected' : '' }}>{{ $category->name }}</option>
+                <option value="{{ $category->id }}" {{ $category->id == $as ? 'selected' : '' }}>{{ $category->name }}</option>
                 @endforeach
               </select>
             </div>
@@ -65,7 +65,7 @@
             <div class="panel-body text-center">
               <h4>
                 <a href="{{ url('products/'. $product->slug) }}" class="pro-title">
-                  {{ $product->name }}
+                  {{ Str::limit($product->name, 25) }}
                 </a>
               </h4>
               <p class="price">@currency($product->price_label())</p>
@@ -78,4 +78,24 @@
     </div>
   </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+  (function($) {
+    $('#as').on('change', function(e) {
+      var anime_id = e.target.value;
+
+      $.get('/products/categories?as=' + anime_id, function(data) {
+        $('#cn').empty();
+        $('#cn').append('<option value>-- Pilih --</option>');
+
+        $.each(data.cn, function(child, value) {
+
+          $('#cn').append('<option value="' + value.id + '">' + value.name + '</option>');
+        });
+      });
+    });
+  })(jQuery);
+</script>
 @endsection

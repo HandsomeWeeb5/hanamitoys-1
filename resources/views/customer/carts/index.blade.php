@@ -3,11 +3,11 @@
 @section('title', ' | Carts')
 
 @section('content')
-<div class="container " style="background-color: white; padding-bottom: 2rem;">
-  <div class="shopping-cart-box">
+<div class="container page-carts">
+  <div class="shopping-cart-box ptb-100">
     {!! Form::open(['url' => 'carts/update']) !!}
     <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 header-display">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 d-flex">
         <h2>Keranjang Belanja</h2>
         <h4 class="item-count-display ml-auto">Total Belanja: {{ number_format(\Cart::getTotalQuantity()) }} item</h4>
       </div>
@@ -66,11 +66,11 @@
     </div>
     <div class="row">
       <div class="col-md-5 ml-auto">
-        <div style="padding-top: 50px;">
-          <h2 style="font-size: 25px; font-weight: 700; margin-bottom: 20px; text-transform: capitalize;">Cart totals</h2>
-          <ul style="border: 1px solid #ddd; padding: 0; margin: 0;">
-            <li style="border-bottom: 1px solid #ddd; color: #555; font-size: 15px; font-weight: bold; padding: 10px 30px; list-style: none;">Subtotal<span style="float: right;">{{ number_format(\Cart::getSubTotal()) }}</span></li>
-            <li style="border-bottom: none; color: #555; font-size: 15px; font-weight: bold; padding: 10px 30px; list-style: none;">Total<span style="float: right;">{{ number_format(\Cart::getTotal()) }}</span></li>
+        <div class="total">
+          <h2 class="total-title">Cart totals</h2>
+          <ul>
+            <li>Subtotal<span>{{ number_format(\Cart::getSubTotal()) }}</span></li>
+            <li>Total<span>{{ number_format(\Cart::getTotal()) }}</span></li>
           </ul>
           <a class="btn btn-success mt-4" href="{{ url('orders/checkout') }}">Proceed to checkout</a>
         </div>
@@ -79,8 +79,4 @@
     {!! Form::close() !!}
   </div>
 </div>
-@endsection
-
-@section('script')
-<script src="{{ asset('assets/customer/js/app.js') }}"></script>
 @endsection
