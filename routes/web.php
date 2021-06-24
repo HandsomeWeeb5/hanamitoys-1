@@ -12,6 +12,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -49,6 +50,12 @@ Route::post('orders/shipping-cost', [OrderController::class, 'shippingCost']);
 Route::post('orders/set-shipping', [OrderController::class, 'setShipping']);
 Route::get('orders/received/{orderID}', [OrderController::class, 'received']);
 Route::get('orders/cities', [OrderController::class, 'cities']);
+
+// Payment
+Route::post('payments/notification', [PaymentController::class, 'notification']);
+Route::get('payments/completed', [PaymentController::class, 'completed']);
+Route::get('payments/failed', [PaymentController::class, 'failed']);
+Route::get('payments/unfinish', [PaymentController::class, 'unfinish']);
 
 // About
 Route::get('about', [AboutController::class, 'index'])->name('about');

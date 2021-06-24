@@ -137,9 +137,9 @@
         <a href="#" rel="noopener" target="_blank" class="btn" style="background-color: #f8f9fa; border-color: #ddd; color: #444;">
           <i class="fas fa-print"></i> Print
         </a>
-        <button type="button" class="btn btn-success float-right">
-          <i class="far fa-credit-card"></i> Pembayaran
-        </button>
+        @if (!$order->isPaid())
+        <a href="{{ $order->payment_url }}" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Pembayaran</a>
+        @endif
         <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
           <i class="fas fa-download"></i> PDF
         </button>

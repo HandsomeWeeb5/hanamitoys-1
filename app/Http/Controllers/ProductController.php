@@ -49,16 +49,16 @@ class ProductController extends Controller
   {
     $products = Product::active();
 
-    $products = $this->searchProducts($products, $request);
-    $products = $this->filterProductsByPriceRange($products, $request);
-    $products = $this->filterProductsByAttribute($products, $request);
-    $products = $this->sortProducts($products, $request);
+    $products = $this->_searchProducts($products, $request);
+    $products = $this->_filterProductsByPriceRange($products, $request);
+    $products = $this->_filterProductsByAttribute($products, $request);
+    $products = $this->_sortProducts($products, $request);
 
     $this->data['products'] = $products->paginate(12);
     return view('customer.products.index', $this->data);
   }
 
-  private function searchProducts($products, $request)
+  private function _searchProducts($products, $request)
   {
     if ($q = $request->query('q')) {
       $q = str_replace('-', ' ', Str::slug($q));
@@ -97,7 +97,7 @@ class ProductController extends Controller
     return $products;
   }
 
-  private function filterProductsByPriceRange($products, $request)
+  private function _filterProductsByPriceRange($products, $request)
   {
     $lowPrice = null;
     $highPrice = null;
@@ -124,7 +124,7 @@ class ProductController extends Controller
     return $products;
   }
 
-  private function filterProductsByAttribute($products, $request)
+  private function _filterProductsByAttribute($products, $request)
   {
     if ($attributeOptionID = $request->query('tf')) {
       $attributeOption = AttributeOption::findOrFail($attributeOptionID);
@@ -140,7 +140,7 @@ class ProductController extends Controller
     return $products;
   }
 
-  private function sortProducts($products, $request)
+  private function _sortProducts($products, $request)
   {
     if ($sort = preg_replace('/\s+/', '', $request->query('sort'))) {
       $availableSorts = ['price', 'created_at'];

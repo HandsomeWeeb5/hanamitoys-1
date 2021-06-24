@@ -222,6 +222,7 @@ class OrderController extends Controller
       function () use ($params) {
         $order = $this->_saveOrder($params);
         $this->_saveOrderItems($order);
+        $this->_generatePaymentToken($order);
         $this->_saveShipment($order, $params);
 
         return $order;
@@ -236,6 +237,46 @@ class OrderController extends Controller
     }
 
     return redirect('orders/checkout');
+  }
+
+  /**
+   * Generate payment token
+   *
+   * @param Order $order order data
+   *
+   * @return void
+   */
+  private function _generatePaymentToken($order)
+  {
+    $this->initPaymentGateway();
+
+    $customerDetails = [
+      'first_name' => $order->customer_first_name,
+      'last_name' => $order->customer_last_name,
+      'email' => $order->customer_email,
+      'phone' => $order->customer_phone,
+    ];
+
+    $params = [
+      'enable_payments' => \App\Models\Payment::PAYMENT_CHANNELS,
+      'transaction_details' => [
+        'order_id' => $order->code,
+        'gross_amount' => $order->grand_total,
+      ],
+      'customer_details' => $customerDetails,
+      'expiry' => [
+        'start_time' => date('Y-m-d H:i:s T'),
+        'unit' => \App\Models\Payment::EXPIRY_UNIT,
+        'duration' => \App\Models\Payment::EXPIRY_DURATION,
+      ],
+    ];
+
+    $snap = \Midtrans\Snap::createTransaction($params);
+    if ($snap->token) {
+      $order->payment_token = $snap->token;
+      $order->payment_url = $snap->redirect_url;
+      $order->save();
+    }
   }
 
   /**
@@ -279,7 +320,6 @@ class OrderController extends Controller
       'note' => $params['note'],
       'customer_first_name' => $params['first_name'],
       'customer_last_name' => $params['last_name'],
-      'customer_company' => $params['company'],
       'customer_address1' => $params['address1'],
       'customer_address2' => $params['address2'],
       'customer_phone' => $params['phone'],

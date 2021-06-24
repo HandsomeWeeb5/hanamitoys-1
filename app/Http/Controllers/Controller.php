@@ -38,6 +38,15 @@ class Controller extends BaseController
   //   return view('themes/' . env('APP_THEME') . '/' . $view, $data);
   // }
 
+  /**
+   * Raja Ongkir Request (Shipping Cost Calculation)
+   *
+   * @param string $resource resource url
+   * @param array  $params   parameters
+   * @param string $method   request method
+   *
+   * @return json
+   */
   protected function rajaOngkirRequest($resource, $params = [], $method = 'GET')
   {
     $client = new \GuzzleHttp\Client();
@@ -60,6 +69,11 @@ class Controller extends BaseController
     return json_decode($response->getBody(), true);
   }
 
+  /**
+   * Get provinces
+   *
+   * @return array
+   */
   protected function getProvinces()
   {
     $provinceFile = 'provinces.txt';
@@ -84,6 +98,13 @@ class Controller extends BaseController
     return $provinces;
   }
 
+  /**
+   * Get cities by province ID
+   *
+   * @param int $provinceId province id
+   *
+   * @return array
+   */
   protected function getCities($provinceId)
   {
     $cityFile = 'cities_at_' . $provinceId . '.txt';
@@ -106,5 +127,22 @@ class Controller extends BaseController
     }
 
     return $cities;
+  }
+
+  /**
+   * Initiate payment gateway request object
+   *
+   * @return void
+   */
+  protected function initPaymentGateway()
+  {
+    // Set your Merchant Server Key
+    \Midtrans\Config::$serverKey = env('MIDTRANS_SERVER_KEY');
+    // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+    \Midtrans\Config::$isProduction = false;
+    // Set sanitization on (default)
+    \Midtrans\Config::$isSanitized = true;
+    // Set 3DS transaction for credit card to true
+    \Midtrans\Config::$is3ds = true;
   }
 }
