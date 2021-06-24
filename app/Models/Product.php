@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-  use HasFactory;
-
   protected $fillable = [
     'parent_id',
     'user_id',
@@ -18,9 +16,12 @@ class Product extends Model
     'slug',
     'price',
     'weight',
+    'length',
+    'width',
+    'height',
     'short_description',
     'description',
-    'status'
+    'status',
   ];
 
   public const DRAFT = 0;
@@ -162,7 +163,7 @@ class Product extends Model
   public function scopeActive($query)
   {
     return $query->where('status', 1)
-      ->where('parent_id', NULL);
+      ->where('parent_id', null);
   }
 
   /**

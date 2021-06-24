@@ -21,6 +21,7 @@ use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
+
   /**
    * Create a new controller instance.
    *
@@ -40,7 +41,7 @@ class ProductController extends Controller
    */
   public function index()
   {
-    $this->data['products'] = Product::all();
+    $this->data['products'] = Product::orderBy('name', 'ASC')->paginate(10);
 
     return view('admin.products.index', $this->data);
   }
@@ -473,7 +474,6 @@ class ProductController extends Controller
   public function removeImage($id)
   {
     $image = ProductImage::findOrFail($id);
-    unlink(public_path('storage/' . $image->path, 'storage/' . $image->small, 'storage/' . $image->medium, 'storage/' . $image->large, 'storage/' . $image->extra_large));
 
     if ($image->delete()) {
       Session::flash('success', 'Image has been deleted');

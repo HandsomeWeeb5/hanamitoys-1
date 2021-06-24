@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ShipmentController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -57,6 +58,9 @@ Route::post('payments/notification', [PaymentController::class, 'notification'])
 Route::get('payments/completed', [PaymentController::class, 'completed'])->middleware('role:Customer');
 Route::get('payments/failed', [PaymentController::class, 'failed'])->middleware('role:Customer');
 Route::get('payments/unfinish', [PaymentController::class, 'unfinish'])->middleware('role:Customer');
+
+// Favorite
+Route::resource('favorites', FavoriteController::class);
 
 // About
 Route::get('about', [AboutController::class, 'index'])->name('about');

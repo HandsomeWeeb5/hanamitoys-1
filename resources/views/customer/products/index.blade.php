@@ -53,13 +53,9 @@
               @if ($product->productImages->first())
               <img class="img-fluid" src="{{ asset('storage/'.$product->productImages->first()->medium) }}" alt="{{ $product->name }}">
               @endif
-              {!! Form::open(['url' => 'carts']) !!}
-              {{ Form::hidden('product_id', $product->id) }}
-              {{ Form::hidden('qty', 1) }}
-              <button href="{{ url('carts') }}" class="adtocart">
-                <i class="fa fa-shopping-cart"></i>
-              </button>
-              {!! Form::close() !!}
+              <a class="add-to-fav" title="Wishlist" product-slug="{{ $product->slug }}" href="">
+                <i class="far fa-heart"></i>
+              </a>
             </div>
 
             <div class="panel-body text-center">
