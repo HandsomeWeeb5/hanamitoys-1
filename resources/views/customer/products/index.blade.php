@@ -51,7 +51,7 @@
           <section class="panel mb-md-3 mb-sm-3 mb-4">
             <div class="pro-img-box">
               @if ($product->productImages->first())
-              <img class="img-fluid" src="{{ asset('storage/'.$product->productImages->first()->path) }}" alt="{{ $product->name }}">
+              <img class="img-fluid" src="{{ asset('storage/'.$product->productImages->first()->medium) }}" alt="{{ $product->name }}">
               @endif
               {!! Form::open(['url' => 'carts']) !!}
               {{ Form::hidden('product_id', $product->id) }}

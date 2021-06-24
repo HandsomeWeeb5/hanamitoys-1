@@ -80,9 +80,9 @@ Route::prefix('admin')->middleware('auth', 'role:Admin')->group(function () {
   // Products
   Route::resource('products', AdminProductController::class);
   Route::get('products/{productID}/images', [AdminProductController::class, 'images'])->name('products.images');
-  Route::get('products/{productID}/add-image', [AdminProductController::class, 'add_image'])->name('products.add_image');
-  Route::post('products/images/{productID}', [AdminProductController::class, 'upload_image'])->name('products.upload_image');
-  Route::delete('products/images/{imageID}', [AdminProductController::class, 'remove_image'])->name('products.remove_image');
+  Route::get('products/{productID}/add-image', [AdminProductController::class, 'addImage'])->name('products.add_image');
+  Route::post('products/images/{productID}', [AdminProductController::class, 'uploadImage'])->name('products.upload_image');
+  Route::delete('products/images/{imageID}', [AdminProductController::class, 'removeImage'])->name('products.remove_image');
 
   // Attributes
   Route::resource('attributes', AttributeController::class);

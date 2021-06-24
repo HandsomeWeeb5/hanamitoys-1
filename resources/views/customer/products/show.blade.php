@@ -7,7 +7,7 @@
   <div class="row py-5">
     <div class="col-md-6">
       @forelse ($product->productImages as $image)
-      <img class="img-fluid" src="{{ asset('storage/'.$image->path) }}" alt="{{ $product->name }}">
+      <img class="img-fluid" src="{{ asset('storage/'.$image->large) }}" alt="{{ $product->name }}">
       @empty
       No image found!
       @endforelse
