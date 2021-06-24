@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attribute;
+use App\Models\Category;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Shipment;
+use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -28,6 +34,12 @@ class Controller extends BaseController
 
   public function __construct()
   {
+    $this->data['productsCount'] = Product::all()->count();
+    $this->data['categoriesCount'] = Category::all()->count();
+    $this->data['atributesCount'] = Attribute::all()->count();
+    $this->data['ordersCount'] = Order::all()->count();
+    $this->data['shipmentsCount'] = Shipment::all()->count();
+    $this->data['usersCount'] = User::all()->count();
     $this->rajaOngkirApiKey = env('RAJAONGKIR_API_KEY');
     $this->rajaOngkirBaseUrl = env('RAJAONGKIR_BASE_URL');
     $this->rajaOngkirOrigin = env('RAJAONGKIR_ORIGIN');

@@ -17,7 +17,8 @@ class RenameColumnAndAddColumnsInUsersTable extends Migration
       $table->string('name')->nullable()->change();
       $table->renameColumn('name', 'first_name');
       $table->string('last_name')->nullable()->after('name');
-      $table->string('phone')->nullable()->after('email');
+      $table->string('img')->nullable()->after('email');
+      $table->string('phone')->nullable()->after('img');
       $table->string('company')->nullable()->after('remember_token');
       $table->string('address1')->nullable()->after('company');
       $table->string('address2')->nullable()->after('address1');
@@ -37,6 +38,7 @@ class RenameColumnAndAddColumnsInUsersTable extends Migration
     Schema::table('users', function (Blueprint $table) {
       $table->renameColumn('first_name', 'name');
       $table->dropColumn('last_name');
+      $table->dropColumn('img');
       $table->dropColumn('phone');
       $table->dropColumn('company');
       $table->dropColumn('address1');

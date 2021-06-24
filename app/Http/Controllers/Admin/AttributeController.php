@@ -13,6 +13,8 @@ class AttributeController extends Controller
 {
   public function __construct()
   {
+    parent::__construct();
+
     $this->data['types'] = Attribute::types();
     $this->data['booleanOptions'] = Attribute::booleanOptions();
     $this->data['validations'] = Attribute::validations();

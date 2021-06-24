@@ -22,6 +22,8 @@ class ProductController extends Controller
 
   public function __construct()
   {
+    parent::__construct();
+
     $this->data['statuses'] = Product::statuses();
     $this->data['types'] = Product::types();
   }

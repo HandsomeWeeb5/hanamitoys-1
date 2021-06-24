@@ -14,7 +14,13 @@ class HomeController extends Controller
    */
   public function index()
   {
-    $this->data['products'] = Product::active()->get()->random(4);
+    $products = Product::all();
+
+    if (count($products) == 4) {
+      $this->data['products'] = Product::active()->get()->random(4);
+    } else {
+      $this->data['products'] = Product::all();
+    }
 
     return view('customer.home.index', $this->data);
   }

@@ -167,10 +167,14 @@ class General
    */
   public static function showAttributes($jsonAttributes)
   {
-    $attributes = json_decode($jsonAttributes, true);
-    if ($attributes) {
-      foreach ($attributes as $key => $attribute) {
-        $showAttributes = '<p>' . ucwords($key) . ': <span>' . $attribute . '</span><p>';
+    if ($jsonAttributes == '[]') {
+      $showAttributes = '';
+    } else {
+      $attributes = json_decode($jsonAttributes, true);
+      if ($attributes) {
+        foreach ($attributes as $key => $attribute) {
+          $showAttributes = '<p>' . ucwords($key) . ': <span>' . $attribute . '</span><p>';
+        }
       }
     }
 

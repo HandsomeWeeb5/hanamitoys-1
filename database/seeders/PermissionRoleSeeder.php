@@ -20,10 +20,10 @@ class PermissionRoleSeeder extends Seeder
     app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
     // create permissions
-    Permission::create(['name' => 'view_categories']);
-    Permission::create(['name' => 'add_categories']);
-    Permission::create(['name' => 'edit_categories']);
-    Permission::create(['name' => 'delete_categories']);
+    // Permission::create(['name' => 'view_categories']);
+    // Permission::create(['name' => 'add_categories']);
+    // Permission::create(['name' => 'edit_categories']);
+    // Permission::create(['name' => 'delete_categories']);
 
     // create roles and assign existing permissions
     $admin = Role::create(['name' => 'Admin']);
@@ -35,15 +35,15 @@ class PermissionRoleSeeder extends Seeder
 
     // create users
     $userAdmin = \App\Models\User::factory()->create([
-      'first_name' => 'Muhammad',
-      'last_name' => 'Fajar',
+      'first_name' => 'Admin',
+      'last_name' => 'HanamiToys',
       'email' => 'admin@example.com',
     ]);
     $userAdmin->assignRole($admin);
 
     $userCustomer = \App\Models\User::factory()->create([
-      'first_name' => 'Customer',
-      'last_name' => '1',
+      'first_name' => 'Muhammad',
+      'last_name' => 'Fajar',
       'email' => 'customer@example.com',
     ]);
     $userCustomer->assignRole($customer);

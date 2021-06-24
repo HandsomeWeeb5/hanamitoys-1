@@ -1,6 +1,6 @@
 @extends('admin.master')
 
-@section('title', 'Produk')
+@section('title', 'Orders')
 
 @section('css')
 {{-- DataTable --}}
@@ -16,19 +16,19 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Produk</h1>
+        <h1 class="m-0">Order</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
-          <li class="breadcrumb-item active">Produk</li>
+          <li class="breadcrumb-item active">Order</li>
         </ol>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
         <div class="float-sm-right">
-          <a href="{{ route('products.create') }}" class="btn btn-success">Tambah Produk</a>
+          <a href="{{ route('orders.trashed') }}" class="btn btn-danger">Tempat Sampah</a>
         </div>
       </div>
     </div>
@@ -40,41 +40,44 @@
   <div class="container-fluid">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Data Tabel Produk</h3>
+        <h3 class="card-title">Data Tabel Order</h3>
       </div>
       <div class="card-body">
         @include('admin.components.flash')
         <table id="dataTable" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>No</th>
-              <th>SKU</th>
-              <th>Tipe</th>
-              <th>Nama</th>
-              <th>Harga</th>
+              <th>Order ID</th>
+              <th>Grand Total</th>
+              <th>Name</th>
               <th>Status</th>
-              <th style="width: 15%;">Aksi</th>
+              <th>Payment</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($products as $index => $product)
+            @forelse ($orders as $order)
             <tr>
-              <td>{{ $index + 1 }}</td>
-              <td>{{ $product->sku }}</td>
-              <td>{{ $product->type }}</td>
-              <td>{{ $product->name }}</td>
-              <td>@currency($product->price)</td>
-              <td>{{ $product->status_label() }}</td>
               <td>
-                <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-info btn-sm">Ubah</a>
-
-                {!! Form::open(['url' => 'admin/products/'. $product->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
-                {!! Form::hidden('_method', 'DELETE') !!}
-                {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
-                {!! Form::close() !!}
+                {{ $order->code }}<br>
+                <span style="font-size: 12px; font-weight: normal"> {{\General::datetimeFormat($order->order_date) }}</span>
+              </td>
+              <td>@currency($order->grand_total)</td>
+              <td>
+                {{ $order->customer_full_name }}<br>
+                <span style="font-size: 12px; font-weight: normal"> {{ $order->customer_email }}</span>
+              </td>
+              <td>{{ $order->status }}</td>
+              <td>{{ $order->payment_status }}</td>
+              <td>
+                <a href="{{ url('admin/orders/'. $order->id) }}" class="btn btn-info btn-sm">show</a>
               </td>
             </tr>
-            @endforeach
+            @empty
+            <tr>
+              <td colspan="5">No records found</td>
+            </tr>
+            @endforelse
           </tbody>
         </table>
       </div>

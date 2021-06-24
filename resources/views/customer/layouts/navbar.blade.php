@@ -12,6 +12,7 @@
         <button class="btn input-group-btn fa fa-search shadow-none" type="submit"></button>
       </form>
       <ul class="navbar-nav ml-lg-auto navbar-nav-1">
+        @role('Customer')
         <li class="nav-item px-lg-1" data-toggle="tooltip" data-placement="bottom" title="Cart">
           <a class="nav-link" href="{{ url('carts') }}">
             <div class="icon-container">
@@ -28,6 +29,7 @@
           </a>
         </li>
         @endauth
+        @endrole
         @guest
         <li class="nav-item px-lg-1" data-toggle="tooltip" data-placement="bottom" title="Login">
           <a class="nav-link" href="{{ route('login') }}">

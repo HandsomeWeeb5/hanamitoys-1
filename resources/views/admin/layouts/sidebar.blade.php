@@ -2,7 +2,7 @@
   <!-- Brand Logo -->
   <a href="{{ url('admin') }}" class="brand-link">
     <img src="{{ asset('assets/admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <span class="brand-text font-weight-light">Hanami Toys</span>
   </a>
 
   <!-- Sidebar -->
@@ -46,7 +46,7 @@
             <i class="nav-icon fas fa-list-ul"></i>
             <p>
               Kategori
-              <span class="badge badge-info right">2</span>
+              <span class="badge badge-info right">{{ $categoriesCount ?? '' }}</span>
             </p>
           </a>
         </li>
@@ -55,7 +55,7 @@
             <i class="nav-icon fas fa-boxes"></i>
             <p>
               Produk
-              <span class="badge badge-info right">2</span>
+              <span class="badge badge-info right">{{ $productsCount ?? '' }}</span>
             </p>
           </a>
         </li>
@@ -64,7 +64,25 @@
             <i class="nav-icon fas fa-tag"></i>
             <p>
               Atribut
-              <span class="badge badge-info right">2</span>
+              <span class="badge badge-info right">{{ $atributesCount ?? '' }}</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/orders') }}" class="nav-link {{ (request()->segment(2) == 'orders') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-archive"></i>
+            <p>
+              Order
+              <span class="badge badge-info right">{{ $ordersCount ?? '' }}</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ url('admin/shipments') }}" class="nav-link {{ (request()->segment(2) == 'shipments') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-truck"></i>
+            <p>
+              Pengiriman
+              <span class="badge badge-info right">{{ $shipmentsCount ?? '' }}</span>
             </p>
           </a>
         </li>
@@ -74,19 +92,19 @@
             <i class="nav-icon fas fa-users"></i>
             <p>
               User
-              <span class="badge badge-info right">2</span>
+              <span class="badge badge-info right">{{ $usersCount ?? '' }}</span>
             </p>
           </a>
         </li>
-        <li class="nav-item">
+        {{-- <li class="nav-item">
           <a href="{{ url('admin/roles') }}" class="nav-link {{ (request()->segment(2) == 'roles') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-key"></i>
-            <p>
-              Role
-              <span class="badge badge-info right">2</span>
-            </p>
-          </a>
-        </li>
+        <i class="nav-icon fas fa-key"></i>
+        <p>
+          Role
+          <span class="badge badge-info right">2</span>
+        </p>
+        </a>
+        </li> --}}
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
