@@ -29,12 +29,6 @@
               </div>
               <div class="col-md-12">
                 <div class="checkout-form-list">
-                  <label>Company Name</label>
-                  {!! Form::text('company') !!}
-                </div>
-              </div>
-              <div class="col-md-12">
-                <div class="checkout-form-list">
                   <label>Address <span class="required">*</span></label>
                   {!! Form::text('address1', null, ['required' => true, 'placeholder' => 'Home number and street name']) !!}
                 </div>
@@ -94,12 +88,6 @@
                     <div class="checkout-form-list">
                       <label>Last Name <span class="required">*</span></label>
                       {!! Form::text('shipping_last_name') !!}
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="checkout-form-list">
-                      <label>Company Name</label>
-                      {!! Form::text('shipping_company') !!}
                     </div>
                   </div>
                   <div class="col-md-12">
@@ -204,7 +192,7 @@
             </div>
             <div class="payment-method">
               <div class="payment-accordion">
-                <div class="panel-group" id="faq">
+                <!-- <div class="panel-group" id="faq">
                   <div class="panel panel-default">
                     <div class="panel-heading">
                       <h5 class="panel-title"><a data-toggle="collapse" aria-expanded="true" data-parent="#faq" href="#payment-1">Direct Bank Transfer.</a></h5>
@@ -235,7 +223,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <div class="order-button-payment">
                   <input type="submit" value="Place order" />
                 </div>

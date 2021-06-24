@@ -26,6 +26,14 @@
       <h4 class="mb-4">@currency($product->price_label())</h4>
       {!! Form::open(['url' => 'carts']) !!}
       {{ Form::hidden('product_id', $product->id) }}
+      @if ($product->type == 'configurable')
+      <div class="quick-view-select">
+        <div class="select-option-part">
+          <label>Types*</label>
+          {!! Form::select('type', $types , null, ['class' => 'select', 'placeholder' => '- Please Select -', 'required' => true]) !!}
+        </div>
+      </div>
+      @endif
       <div class="adding-product d-flex">
         <div class="quantity-box mb-4">
           <input type="number" name="qty" class="quantity" value="1">

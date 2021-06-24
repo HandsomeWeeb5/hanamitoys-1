@@ -142,6 +142,23 @@ class General
   }
 
   /**
+   * Apply date format to date
+   *
+   * @param string $date date
+   * @param string $format   format
+   *
+   * @return string
+   */
+  public static function dateFormat($date, $format = 'd M Y')
+  {
+    if (!empty($date)) {
+      return date($format, strtotime($date));
+    } else {
+      return '';
+    }
+  }
+
+  /**
    * Show attributes json as ul tag
    *
    * @param string $jsonAttributes json attributes
@@ -151,13 +168,10 @@ class General
   public static function showAttributes($jsonAttributes)
   {
     $attributes = json_decode($jsonAttributes, true);
-    $showAttributes = '';
     if ($attributes) {
-      $showAttributes .= '<ul class="item-attributes">';
       foreach ($attributes as $key => $attribute) {
-        $showAttributes .= '<li>' . ucwords($key) . ': <span>' . $attribute . '</span><li>';
+        $showAttributes = '<p>' . ucwords($key) . ': <span>' . $attribute . '</span><p>';
       }
-      $showAttributes .= '</ul>';
     }
 
     return $showAttributes;

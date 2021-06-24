@@ -36,24 +36,24 @@ class CartController extends Controller
     // $slug = $product->slug;
 
     $attributes = [];
-    // if ($product->configurable()) {
-    //   // $product = Product::from('products as p')
-    //   //   ->whereRaw("p.parent_id = :parent_product_id
-    //   // 				and (select pav.text_value 
-    //   // 						from product_attribute_values pav
-    //   // 						join attributes a on a.id = pav.attribute_id
-    //   // 						where a.code = :type_code
-    //   // 						and pav.product_id = p.id
-    //   // 						limit 1
-    //   // 					) = :type_value", [
-    //   //     'parent_product_id' => $product->id,
-    //   //     'type_code' => 'type',
-    //   //     'type_value' => $params['type'],
-    //   //   ])->firstOrFail();
+    if ($product->configurable()) {
+      $product = Product::from('products as p')
+        ->whereRaw("p.parent_id = :parent_product_id
+							and (select pav.text_value 
+									from product_attribute_values pav
+									join attributes a on a.id = pav.attribute_id
+									where a.code = :type_code
+									and pav.product_id = p.id
+									limit 1
+								) = :type_value
+								", [
+          'parent_product_id' => $product->id,
+          'type_code' => 'type',
+          'type_value' => $params['type'],
+        ])->firstOrFail();
 
-    //   $product = Product::from('products as p');
-    //   // dd($product);
-    // }
+      $attributes['type'] = $params['type'];
+    }
 
     $item = [
       'id' => md5($product->id),
