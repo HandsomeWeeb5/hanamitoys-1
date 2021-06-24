@@ -174,7 +174,7 @@ class ProductController extends Controller
       return redirect('products');
     }
 
-    if ($product->type == 'configurable') {
+    if ($product->configurable()) {
       $this->data['types'] = ProductAttributeValue::getAttributeOptions($product, 'type')->pluck('text_value', 'text_value');
     }
 
@@ -188,4 +188,24 @@ class ProductController extends Controller
     $cn = Category::where('parent_id', $request->query('as'))->get();
     return response()->json(['cn' => $cn]);
   }
+
+  // /**
+  //  * Quick view product.
+  //  *
+  //  * @param string $slug product slug
+  //  *
+  //  * @return \Illuminate\Http\Response
+  //  */
+  // public function quickView($slug)
+  // {
+  // 	$product = Product::active()->where('slug', $slug)->firstOrFail();
+  // 	if ($product->configurable()) {
+  // 		$this->data['colors'] = ProductAttributeValue::getAttributeOptions($product, 'color')->pluck('text_value', 'text_value');
+  // 		$this->data['sizes'] = ProductAttributeValue::getAttributeOptions($product, 'size')->pluck('text_value', 'text_value');
+  // 	}
+
+  // 	$this->data['product'] = $product;
+
+  // 	return $this->loadTheme('products.quick_view', $this->data);
+  // }
 }

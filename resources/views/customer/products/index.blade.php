@@ -68,7 +68,7 @@
                   {{ Str::limit($product->name, 25) }}
                 </a>
               </h4>
-              <p class="price">@currency($product->price_label())</p>
+              <p class="price">@currency($product->priceLabel())</p>
             </div>
           </section>
         </div>
@@ -82,6 +82,17 @@
 
 @section('script')
 <script>
+  function getQuickView(product_slug) {
+    $.ajax({
+      type: 'GET',
+      url: '/products/quick-view/' + product_slug,
+      success: function(response) {
+        $('#exampleModal').html(response);
+        $('#exampleModal').modal();
+      }
+    });
+  }
+
   (function($) {
     $('#as').on('change', function(e) {
       var anime_id = e.target.value;
@@ -96,6 +107,39 @@
         });
       });
     });
+
+    // $('.quick-view').on('click', function(e) {
+    //   e.preventDefault();
+
+    //   var product_slug = $(this).attr('product-slug');
+
+    //   getQuickView(product_slug);
+    // });
+
+    // $('.add-to-card').on('click', function(e) {
+    //   e.preventDefault();
+
+    //   var product_type = $(this).attr('product-type');
+    //   var product_id = $(this).attr('product-id');
+    //   var product_slug = $(this).attr('product-slug');
+
+    //   if (product_type == 'configurable') {
+    //     getQuickView(product_slug);
+    //   } else {
+    //     $.ajax({
+    //       type: 'POST',
+    //       url: '/carts',
+    //       data: {
+    //         _token: $('meta[name="csrf-token"]').attr('content'),
+    //         product_id: product_id,
+    //         qty: 1
+    //       },
+    //       success: function(response) {
+    //         location.reload(true);
+    //       }
+    //     });
+    //   }
+    // });
   })(jQuery);
 </script>
 @endsection

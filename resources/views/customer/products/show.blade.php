@@ -23,7 +23,7 @@
         <p class="mb-1">Anime Series : <a href="{{ url('products'. $product->categories ? 'products?as=' . $product->categories[$s++]->slug : '' ) }}">{{ $product->categories ? $product->categories[$i++]->name : '' }}</a></p>
         <p class="mb-1">Anime Character : <a href="{{ url('products' . $product->categories ? 'products?cn=' . $product->categories[$s++]->slug : '' ) }}">{{ $product->categories ? $product->categories[$i++]->name : '' }}</a></p>
       </div>
-      <h4 class="mb-4">@currency($product->price_label())</h4>
+      <h4 class="mb-4">@currency($product->priceLabel())</h4>
       {!! Form::open(['url' => 'carts']) !!}
       {{ Form::hidden('product_id', $product->id) }}
       @if ($product->type == 'configurable')

@@ -33,7 +33,6 @@ class CartController extends Controller
     $params = $request->except('_token');
 
     $product = Product::findOrFail($params['product_id']);
-    // $slug = $product->slug;
 
     $attributes = [];
     if ($product->configurable()) {
@@ -55,6 +54,9 @@ class CartController extends Controller
       $attributes['type'] = $params['type'];
     }
 
+    $itemQuantity =  $this->_getItemQuantity(md5($product->id)) + $params['qty'];
+    $this->_checkProductInventory($product, $itemQuantity);
+
     $item = [
       'id' => md5($product->id),
       'name' => $product->name,
@@ -71,6 +73,58 @@ class CartController extends Controller
   }
 
   /**
+   * Get total quantity per item in the cart
+   *
+   * @param string $itemId item ID
+   *
+   * @return int
+   */
+  private function _getItemQuantity($itemId)
+  {
+    $items = \Cart::getContent();
+    $itemQuantity = 0;
+    if ($items) {
+      foreach ($items as $item) {
+        if ($item->id == $itemId) {
+          $itemQuantity = $item->quantity;
+          break;
+        }
+      }
+    }
+
+    return $itemQuantity;
+  }
+
+  /**
+   * Check product inventory
+   *
+   * @param Product $product      product object
+   * @param int     $itemQuantity qty
+   *
+   * @return int
+   */
+  private function _checkProductInventory($product, $itemQuantity)
+  {
+    if ($product->productInventory->qty < $itemQuantity) {
+      throw new \App\Exceptions\OutOfStockException('The product ' . $product->sku . ' is out of stock');
+    }
+  }
+
+  /**
+   * Get cart item by card item id
+   *
+   * @param string $cartID cart ID
+   *
+   * @return array
+   */
+  private function _getCartItem($cartID)
+  {
+    $items = \Cart::getContent();
+
+    return $items[$cartID];
+  }
+
+  /**
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
@@ -83,6 +137,9 @@ class CartController extends Controller
 
     if ($items = $params['items']) {
       foreach ($items as $cartID => $item) {
+        $cartItem = $this->_getCartItem($cartID);
+        $this->_checkProductInventory($cartItem->associatedModel, $item['quantity']);
+
         \Cart::update($cartID, [
           'quantity' => [
             'relative' => false,
