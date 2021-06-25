@@ -29,7 +29,7 @@ class ProductController extends Controller
    */
   public function __construct()
   {
-    parent::__construct();
+    // parent::__construct();
 
     $this->data['statuses'] = Product::statuses();
     $this->data['types'] = Product::types();
@@ -131,7 +131,6 @@ class ProductController extends Controller
   private function _generateProductVariants($product, $params)
   {
     $configurableAttributes = $this->_getConfigurableAttributes();
-
     $variantAttributes = [];
     foreach ($configurableAttributes as $attribute) {
       $variantAttributes[$attribute->code] = $params[$attribute->code];
@@ -198,6 +197,7 @@ class ProductController extends Controller
     $params = $request->except('_token');
     $params['slug'] = Str::slug($params['name']);
     $params['user_id'] = Auth::user()->id;
+    // $params['type'] = 'configurable';
 
     $product = DB::transaction(
       function () use ($params) {
@@ -219,7 +219,7 @@ class ProductController extends Controller
       Session::flash('error', 'Product could not be saved');
     }
 
-    return redirect('admin/products/' . $product->id . '/edit/');
+    return redirect('admin/products/' . $product->id . '/edit');
   }
 
   /**
@@ -262,6 +262,8 @@ class ProductController extends Controller
     $params['slug'] = Str::slug($params['name']);
 
     $product = Product::findOrFail($id);
+    $child_id = Product::all()->where('parent_id', $id)->first();
+    $params['price'] = $params['variants'][$child_id['id']]['price'];
 
     $saved = false;
     $saved = DB::transaction(
@@ -269,7 +271,6 @@ class ProductController extends Controller
         $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
         $product->update($params);
         $product->categories()->sync($categoryIds);
-
         if ($product->type == 'configurable') {
           $this->_updateProductVariants($params);
         } else {
