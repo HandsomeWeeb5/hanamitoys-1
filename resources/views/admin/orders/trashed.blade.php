@@ -48,19 +48,19 @@
         <table id="dataTable" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>Order ID</th>
-              <th>Grand Total</th>
-              <th>Name</th>
+              <th>No</th>
+              <th>Hasil Total</th>
+              <th>Nama</th>
               <th>Status</th>
-              <th>Payment</th>
-              <th>Action</th>
+              <th>Pembayaran</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            @forelse ($orders as $order)
+            @forelse ($orders as $index => $order)
             <tr>
               <td>
-                {{ $order->code }}<br>
+                {{ $index + 1 }}<br>
                 <span style="font-size: 12px; font-weight: normal"> {{\General::datetimeFormat($order->order_date) }}</span>
               </td>
               <td>{{\General::priceFormat($order->grand_total) }}</td>
@@ -71,12 +71,12 @@
               <td>{{ $order->status }}</td>
               <td>{{ $order->payment_status }}</td>
               <td>
-                <a href="{{ url('admin/orders/'. $order->id) }}" class="btn btn-info btn-sm">show</a>
+                <a href="{{ url('admin/orders/'. $order->id) }}" class="btn btn-info btn-sm">Lihat</a>
               </td>
             </tr>
             @empty
             <tr>
-              <td colspan="5">No records found</td>
+              <td colspan="6">Data Tidak Ditemukan</td>
             </tr>
             @endforelse
           </tbody>

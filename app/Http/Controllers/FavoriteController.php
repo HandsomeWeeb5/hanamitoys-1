@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Favorite;
 use App\Models\Product;
+use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -22,21 +24,6 @@ class FavoriteController extends Controller
 
     $this->middleware('auth');
   }
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-    $favorites = Favorite::where('user_id', Auth::user()->id)
-      ->orderBy('created_at', 'desc')->paginate(10);
-
-    $this->data['favorites'] = $favorites;
-
-    return $this->loadTheme('favorites.index', $this->data);
-  }
-
 
   /**
    * Store a newly created resource in storage.
@@ -47,29 +34,31 @@ class FavoriteController extends Controller
    */
   public function store(Request $request)
   {
-    $request->validate(
-      [
-        'product_slug' => 'required',
-      ]
-    );
+    $user = User::all()->find(Auth::id());
 
-    $product = Product::where('slug', $request->get('product_slug'))->firstOrFail();
+    if ($user->getRoleNames()[0] == 'Admin') {
+      return response('Admin tidak bisa menambahkan Favorite', 200);
+    } else {
+      $request->validate(['product_slug' => 'required']);
 
-    $favorite = Favorite::where('user_id', Auth::user()->id)
-      ->where('product_id', $product->id)
-      ->first();
-    if ($favorite) {
-      return response('You have added this product to your favorite before', 422);
+      $product = Product::where('slug', $request->get('product_slug'))->firstOrFail();
+
+      $favorite = Favorite::where('user_id', Auth::user()->id)
+        ->where('product_id', $product->id)
+        ->first();
+      if ($favorite) {
+        return response('Kamu telah menambahkan produk ini sebelumnya kedalam favorite', 422);
+      }
+
+      Favorite::create(
+        [
+          'user_id' => Auth::user()->id,
+          'product_id' => $product->id,
+        ]
+      );
+
+      return response('Produk telah ditambahkan kedalam favorite', 200);
     }
-
-    Favorite::create(
-      [
-        'user_id' => Auth::user()->id,
-        'product_id' => $product->id,
-      ]
-    );
-
-    return response('The product has been added to your favorite', 200);
   }
 
   /**
@@ -84,8 +73,8 @@ class FavoriteController extends Controller
     $favorite = Favorite::findOrFail($id);
     $favorite->delete();
 
-    Session::flash('success', 'Your favorite has been removed');
+    Toastr::success('Favorite telah dihapus', 'Sukses');
 
-    return redirect('favorites');
+    return redirect()->back();
   }
 }

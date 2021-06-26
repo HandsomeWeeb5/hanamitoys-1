@@ -21,8 +21,8 @@
           </a>
         </li>
         @auth
-        <li class="nav-item px-lg-1" data-toggle="tooltip" data-placement="bottom" title="Transaction List">
-          <a class="nav-link" href="transaction-list.html">
+        <li class="nav-item px-lg-1" data-toggle="tooltip" data-placement="bottom" title="Order Detail">
+          <a class="nav-link" href="{{ url('orders') }}">
             <div class="icon-container">
               <img src="{{ asset('assets/customer/img/transaction.png') }}" alt="transaction" />
             </div>
@@ -63,11 +63,11 @@
           <a class="nav-link" href="{{ route('about') }}">About</a>
         </li>
         <li class="nav-item {{ (request()->segment(1) == 'contact') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+          <a class="nav-link" href="{{ route('contact.index') }}">Contact</a>
         </li>
         @auth
         <li class="nav-item {{ (request()->segment(1) == 'account') ? 'active' : '' }}">
-          <a class="nav-link" href="{{ route('account') }}">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
+          <a class="nav-link" href="{{ route('account.index') }}">{{ auth()->user()->first_name }} {{ auth()->user()->last_name }}</a>
         </li>
         @endauth
       </ul>

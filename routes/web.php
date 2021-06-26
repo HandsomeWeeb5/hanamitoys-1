@@ -52,6 +52,8 @@ Route::post('orders/shipping-cost', [OrderController::class, 'shippingCost'])->m
 Route::post('orders/set-shipping', [OrderController::class, 'setShipping'])->middleware('role:Customer');
 Route::get('orders/received/{orderID}', [OrderController::class, 'received'])->middleware('role:Customer');
 Route::get('orders/cities', [OrderController::class, 'cities'])->middleware('role:Customer');
+Route::get('orders', [OrderController::class, 'index']);
+Route::get('orders/{orderID}', [OrderController::class, 'show']);
 
 // Payment
 Route::post('payments/notification', [PaymentController::class, 'notification'])->middleware('role:Customer');
@@ -66,10 +68,10 @@ Route::resource('favorites', FavoriteController::class);
 Route::get('about', [AboutController::class, 'index'])->name('about');
 
 // Contact
-Route::get('contact', [ContactController::class, 'index'])->name('contact');
+Route::resource('contact', ContactController::class);
 
 // Account
-Route::get('account', [AccountController::class, 'index'])->name('account')->middleware('auth');
+Route::resource('account', AccountController::class)->middleware('auth');
 
 // Admin
 Route::prefix('admin')->middleware('auth', 'role:Admin')->group(function () {

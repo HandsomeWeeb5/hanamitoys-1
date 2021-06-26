@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\ProductInventory;
 use App\Models\Shipment;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,37 @@ class OrderController extends Controller
     parent::__construct();
 
     $this->middleware('auth');
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function index()
+  {
+    $orders = Order::forUser(Auth::user())
+      ->orderBy('created_at', 'DESC')
+      ->paginate(10);
+
+    $this->data['orders'] = $orders;
+
+    return view('customer.orders.index', $this->data);
+  }
+
+  /**
+   * Display the specified resource.
+   *
+   * @param int $id order ID
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function show($id)
+  {
+    $order = Order::forUser(Auth::user())->findOrFail($id);
+    $this->data['order'] = $order;
+
+    return view('customer.orders.show', $this->data);
   }
 
   public function checkout()
@@ -232,7 +264,7 @@ class OrderController extends Controller
     if ($order) {
       \Cart::clear();
 
-      \Session::flash('success', 'Thank you. Your order has been received!');
+      Toastr::success('Terima Kasih. Order anda telah diterima', 'Sukses');
       return redirect('orders/received/' . $order->id);
     }
 

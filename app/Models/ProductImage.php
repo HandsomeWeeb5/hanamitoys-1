@@ -19,7 +19,7 @@ class ProductImage extends Model
 
 	public const SMALL = '300x300';
 	public const MEDIUM = '600x600';
-	public const LARGE = '900x90';
+	public const LARGE = '900x900';
 	public const EXTRA_LARGE = '1200x1200';
 
 	/**

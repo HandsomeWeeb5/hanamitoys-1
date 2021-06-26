@@ -3,7 +3,7 @@
 @section('title', 'Tambah User')
 
 @php
-$formTitle = !empty($category) ? 'Ubah' : 'Tambah'
+$formTitle = !empty($user) ? 'Ubah' : 'Tambah'
 @endphp
 
 @section('content')

@@ -25,17 +25,17 @@ class ProductController extends Controller
     $this->data['minPrice'] = Product::min('price');
     $this->data['maxPrice'] = Product::max('price');
 
-    $this->data['types'] = AttributeOption::whereHas('attribute', function ($query) {
-      $query->where('code', 'type')
+    $this->data['figures'] = AttributeOption::whereHas('attribute', function ($query) {
+      $query->where('code', 'figure')
         ->where('is_filterable', 1);
     })->orderBy('name', 'asc')->get();
 
     $this->data['sorts'] = [
       url('products') => 'Default',
-      url('products?sort=price-asc') => 'Price - Low to High',
-      url('products?sort=price-desc') => 'Price - High to Low',
-      url('products?sort=created_at-desc') => 'Newest to Oldest',
-      url('products?sort=created_at-asc') => 'Oldest to Newest',
+      url('products?sort=price-asc') => 'Harga - Rendah ke Tinggi',
+      url('products?sort=price-desc') => 'Harga - Tinggi ke Rendah',
+      url('products?sort=created_at-desc') => 'Baru ke Lama',
+      url('products?sort=created_at-asc') => 'Lama ke Baru',
     ];
 
     $this->data['selectedSort'] = url('products');
@@ -175,10 +175,13 @@ class ProductController extends Controller
     }
 
     if ($product->configurable()) {
-      $this->data['types'] = ProductAttributeValue::getAttributeOptions($product, 'type')->pluck('text_value', 'text_value');
+      $this->data['figures'] = ProductAttributeValue::getAttributeOptions($product, 'figure')->pluck('text_value', 'text_value');
+      $this->data['attributesOption'] = ProductAttributeValue::getAttributeOptions($product, 'figure');
     }
+    $attribute = AttributeOption::all()->where('name', $this->data['attributesOption'][0]->text_value)->first();
 
     $this->data['product'] = $product;
+    $this->data['attributes'] = $attribute;
 
     return view('customer.products.show', $this->data);
   }

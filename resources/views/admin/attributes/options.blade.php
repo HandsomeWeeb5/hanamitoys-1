@@ -3,8 +3,7 @@
 @section('title', 'Tambah Atribut')
 
 @php
-$formTitle = !empty($category) ? 'Ubah' : 'Tambah';
-$disableInput = !empty($attribute) ? true : false;
+$formTitle = !empty($attributeOption) ? 'Ubah' : 'Tambah';
 @endphp
 
 @section('content')
@@ -12,7 +11,7 @@ $disableInput = !empty($attribute) ? true : false;
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">{{ $formTitle }} Atribut</h1>
+        <h1 class="m-0">{{ $formTitle }} Opsi Atribut</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -40,12 +39,12 @@ $disableInput = !empty($attribute) ? true : false;
     <div class="col-lg-7">
       <div class="card card-default">
         <div class="card-header">
-          <h3 class="card-title">Options for : {{ $attribute->name }}</h3>
+          <h3 class="card-title">Opsi Untuk: {{ $attribute->name }}</h3>
         </div>
         <div class="card-body">
-          <table>
+          <table class="table table-striped">
             <thead>
-              <th style="width:10%">#</th>
+              <th style="width:10%">No</th>
               <th>Name</th>
               <th style="width:30%">Action</th>
             </thead>
@@ -55,10 +54,10 @@ $disableInput = !empty($attribute) ? true : false;
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $option->name }}</td>
                 <td>
-                  <a href="{{ url('admin/attributes/options/'. $option->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
+                  <a href="{{ url('admin/attributes/options/'. $option->id .'/edit') }}" class="btn btn-warning btn-sm">Ubah</a>
                   {!! Form::open(['url' => 'admin/attributes/options/'. $option->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                   {!! Form::hidden('_method', 'DELETE') !!}
-                  {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
+                  {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
                   {!! Form::close() !!}
                 </td>
               </tr>

@@ -918,6 +918,10 @@ h5.panel-title a:hover {
 }
 
 /*=============== INVOICE / ORDER DETAIL =========== */
+.content-transaction .title-page {
+    text-align: center;
+}
+
 .content-transaction table tr > td {
     vertical-align: middle;
 }

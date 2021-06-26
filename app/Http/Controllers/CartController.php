@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
-use Illuminate\Support\Facades\Session;
+use Brian2694\Toastr\Facades\Toastr;
 
 class CartController extends Controller
 {
@@ -33,7 +33,6 @@ class CartController extends Controller
     $params = $request->except('_token');
 
     $product = Product::findOrFail($params['product_id']);
-
     $attributes = [];
     if ($product->configurable()) {
       $product = Product::from('products as p')
@@ -41,17 +40,16 @@ class CartController extends Controller
 							and (select pav.text_value 
 									from product_attribute_values pav
 									join attributes a on a.id = pav.attribute_id
-									where a.code = :type_code
+									where a.code = :figure_code
 									and pav.product_id = p.id
 									limit 1
-								) = :type_value
+								) = :figure_value
 								", [
           'parent_product_id' => $product->id,
-          'type_code' => 'type',
-          'type_value' => $params['type'],
+          'figure_code' => 'figure',
+          'figure_value' => $params['figure'],
         ])->firstOrFail();
-
-      $attributes['type'] = $params['type'];
+      $attributes['figure'] = $params['figure'];
     }
 
     $itemQuantity =  $this->_getItemQuantity(md5($product->id)) + $params['qty'];
@@ -68,7 +66,7 @@ class CartController extends Controller
 
     \Cart::add($item);
 
-    Session::flash('success', 'Product ' . $item['name'] . ' has been added to cart');
+    Toastr::success('Produk ' . $item['name'] . ' telah ditambahkan kedalam keranjang', 'Sukses');
     return redirect()->back();
   }
 
@@ -135,6 +133,12 @@ class CartController extends Controller
   {
     $params = $request->except('_token');
 
+    // Jika tidak ada array items 
+    if (empty($params['items'])) {
+      Toastr::error('Keranjang gagal diperbarui', 'Gagal');
+      return redirect('carts');
+    }
+
     if ($items = $params['items']) {
       foreach ($items as $cartID => $item) {
         $cartItem = $this->_getCartItem($cartID);
@@ -148,7 +152,7 @@ class CartController extends Controller
         ]);
       }
 
-      Session::flash('success', 'The cart has been updated');
+      Toastr::success('Keranjang telah diperbarui', 'Sukses');
       return redirect('carts');
     }
   }

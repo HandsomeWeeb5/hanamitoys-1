@@ -180,7 +180,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+        Brian2694\Toastr\ToastrServiceProvider::class
     ],
 
     /*
@@ -237,7 +238,8 @@ return [
         // Add New
         'General' => App\Helpers\General::class,
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'Toastr'  => Brian2694\Toastr\Facades\Toastr::class
     ],
 
 ];

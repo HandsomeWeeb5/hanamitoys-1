@@ -66,7 +66,7 @@
               <td>@currency($product->price)</td>
               <td>{{ $product->statusLabel() }}</td>
               <td>
-                <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-info btn-sm">Ubah</a>
+                <a href="{{ url('admin/products/'. $product->id .'/edit') }}" class="btn btn-warning btn-sm">Ubah</a>
 
                 {!! Form::open(['url' => 'admin/products/'. $product->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}

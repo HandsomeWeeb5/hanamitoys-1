@@ -29,7 +29,7 @@ class ProductController extends Controller
    */
   public function __construct()
   {
-    // parent::__construct();
+    parent::__construct();
 
     $this->data['statuses'] = Product::statuses();
     $this->data['types'] = Product::types();
@@ -41,7 +41,7 @@ class ProductController extends Controller
    */
   public function index()
   {
-    $this->data['products'] = Product::orderBy('name', 'ASC')->paginate(10);
+    $this->data['products'] = Product::all();
 
     return view('admin.products.index', $this->data);
   }
@@ -154,7 +154,6 @@ class ProductController extends Controller
 
         $categoryIds = !empty($params['category_ids']) ? $params['category_ids'] : [];
         $newProductVariant->categories()->sync($categoryIds);
-
         $this->_saveProductAttributeValues($newProductVariant, $variant, $product->id);
       }
     }
@@ -197,7 +196,6 @@ class ProductController extends Controller
     $params = $request->except('_token');
     $params['slug'] = Str::slug($params['name']);
     $params['user_id'] = Auth::user()->id;
-    // $params['type'] = 'configurable';
 
     $product = DB::transaction(
       function () use ($params) {
