@@ -56,18 +56,18 @@
           <tbody>
             @foreach ($attributes as $index => $attribute)
             <tr>
-              <td>{{ $index }}</td>
+              <td>{{ $index + 1 }}</td>
               <td>{{ $attribute->code }}</td>
               <td>{{ $attribute->name }}</td>
               <td>{{ $attribute->type }}</td>
               <td>
-                <a href="{{ url('admin/attributes/'. $attribute->id .'/edit') }}" class="btn btn-warning btn-sm">edit</a>
+                <a href="{{ url('admin/attributes/'. $attribute->id .'/edit') }}" class="btn btn-warning btn-sm">Ubah</a>
                 @if ($attribute->type == 'select')
-                <a href="{{ url('admin/attributes/'. $attribute->id .'/options') }}" class="btn btn-success btn-sm">options</a>
+                <a href="{{ url('admin/attributes/'. $attribute->id .'/options') }}" class="btn btn-success btn-sm">Opsi</a>
                 @endif
                 {!! Form::open(['url' => 'admin/attributes/'. $attribute->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}
-                {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
+                {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
                 {!! Form::close() !!}
               </td>
             </tr>

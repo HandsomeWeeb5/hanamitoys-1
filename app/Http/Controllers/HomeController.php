@@ -16,7 +16,7 @@ class HomeController extends Controller
   {
     $products = Product::all();
 
-    if (count($products) == 4) {
+    if (count($products) >= 4) {
       $this->data['products'] = Product::active()->get()->random(4);
     } else {
       $this->data['products'] = Product::all();

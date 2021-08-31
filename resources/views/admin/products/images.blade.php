@@ -5,7 +5,7 @@
 @section('content')
 
 @php
-$formTitle = !empty($category) ? 'Ubah' : 'Tambah'
+$formTitle = !empty($productImages) ? 'Ubah' : 'Tambah'
 @endphp
 
 <div class="content-header">
@@ -40,27 +40,27 @@ $formTitle = !empty($category) ? 'Ubah' : 'Tambah'
     <div class="col-lg-8">
       <div class="card card-default">
         <div class="card-header card-header-border-bottom">
-          <h2>Product Images</h2>
+          <h2>Gambar Produk</h2>
         </div>
         <div class="card-body">
           @include('admin.components.flash')
           <table class="table table-bordered table-stripped">
             <thead>
-              <th>#</th>
-              <th>Image</th>
-              <th>Uploaded At</th>
-              <th>Action</th>
+              <th>No</th>
+              <th>Gambar</th>
+              <th>Diupload Pada</th>
+              <th>Aksi</th>
             </thead>
             <tbody>
-              @forelse ($productImages as $image)
+              @forelse ($productImages as $index => $image)
               <tr>
-                <td>{{ $image->id }}</td>
+                <td>{{ $index + 1 }}</td>
                 <td><img src="{{ asset('storage/'.$image->small) }}" style="width:150px"></td>
                 <td>{{ $image->created_at }}</td>
                 <td>
                   {!! Form::open(['url' => 'admin/products/images/'. $image->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                   {!! Form::hidden('_method', 'DELETE') !!}
-                  {!! Form::submit('remove', ['class' => 'btn btn-danger btn-sm']) !!}
+                  {!! Form::submit('Hapus', ['class' => 'btn btn-danger btn-sm']) !!}
                   {!! Form::close() !!}
                 </td>
               </tr>
@@ -73,7 +73,7 @@ $formTitle = !empty($category) ? 'Ubah' : 'Tambah'
           </table>
         </div>
         <div class="card-footer text-right">
-          <a href="{{ url('admin/products/'.$productID.'/add-image') }}" class="btn btn-primary">Add New</a>
+          <a href="{{ url('admin/products/'.$productID.'/add-image') }}" class="btn btn-primary">Tambah Gambar</a>
         </div>
       </div>
     </div>

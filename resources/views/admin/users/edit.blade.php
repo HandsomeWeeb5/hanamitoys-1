@@ -3,7 +3,7 @@
 @section('title', 'Tambah User')
 
 @php
-$formTitle = !empty($category) ? 'Ubah' : 'Tambah'
+$formTitle = !empty($user) ? 'Ubah' : 'Tambah'
 @endphp
 
 @section('content')
@@ -40,7 +40,7 @@ $formTitle = !empty($category) ? 'Ubah' : 'Tambah'
           @include('admin.users.form')
           <!-- Submit Form Button -->
           <div class="form-footer text-center pt-3 border-top">
-            {!! Form::submit('Tambah', ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit('Ubah', ['class' => 'btn btn-primary']) !!}
           </div>
           {!! Form::close() !!}
         </div>

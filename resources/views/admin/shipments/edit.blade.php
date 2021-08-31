@@ -8,7 +8,7 @@
   <div class="container-fluid">
     <div class="row mb-2">
       <div class="col-sm-6">
-        <h1 class="m-0">Pengiriman</h1>
+        <h1 class="m-0">Pengiriman Pesanan</h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
@@ -33,7 +33,7 @@
     <div class="col-lg-6">
       <div class="card card-default">
         <div class="card-header card-header-border-bottom">
-          <h2>Order Shipment #{{ $shipment->order->code }}</h2>
+          <h2>Pengiriman Pesanan #{{ $shipment->order->code }}</h2>
         </div>
         <div class="card-body">
           @include('admin.components.flash', ['$errors' => $errors])
@@ -41,11 +41,11 @@
           {!! Form::hidden('id') !!}
           <div class="form-group row">
             <div class="col-md-6">
-              {!! Form::label('first_name', 'First name') !!}
+              {!! Form::label('first_name', 'Nama Depan') !!}
               {!! Form::text('first_name', null, ['class' => 'form-control', 'readonly' => true]) !!}
             </div>
             <div class="col-md-6">
-              {!! Form::label('last_name', 'Last name') !!}
+              {!! Form::label('last_name', 'Nama Belakang') !!}
               {!! Form::text('last_name', null, ['class' => 'form-control', 'readonly' => true]) !!}
             </div>
           </div>
@@ -96,8 +96,8 @@
             {!! Form::text('track_number', null, ['class' => 'form-control']) !!}
           </div>
           <div class="form-footer pt-5 border-top">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <a href="{{ url('admin/orders/'. $shipment->order->id) }}" class="btn btn-secondary">Back</a>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url('admin/orders/'. $shipment->order->id) }}" class="btn btn-secondary">Kembali</a>
           </div>
           {!! Form::close() !!}
         </div>
@@ -106,7 +106,7 @@
     <div class="col-lg-6">
       <div class="card card-default">
         <div class="card-header card-header-border-bottom">
-          <h2>Detail Order</h2>
+          <h2>Detail Pesanan</h2>
         </div>
         <div class="card-body">
           <div class="row">
@@ -162,7 +162,7 @@
                 <li class="mid pb-3 text-dark">Subtotal
                   <span class="d-inline-block float-right text-default">@currency($shipment->order->base_total_price)</span>
                 </li>
-                <li class="mid pb-3 text-dark">Shipping Cost
+                <li class="mid pb-3 text-dark">Ongkos Kirim
                   <span class="d-inline-block float-right text-default">@currency($shipment->order->shipping_cost)</span>
                 </li>
                 <li class="pb-3 text-dark">Total

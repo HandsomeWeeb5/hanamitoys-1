@@ -1,8 +1,15 @@
-<!-- Name Form Input -->
-<div class="form-group @if ($errors->has('name')) has-error @endif">
-  {!! Form::label('name', 'Name') !!}
-  {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
-  @if ($errors->has('name')) <p class="help-block">{{ $errors->first('name') }}</p> @endif
+<!-- First Name Form Input -->
+<div class="form-group @if ($errors->has('first_name')) has-error @endif">
+  {!! Form::label('first_name', 'Nama Depan') !!}
+  {!! Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Nama Depan']) !!}
+  @if ($errors->has('first_name')) <p class="help-block">{{ $errors->first('first_name') }}</p> @endif
+</div>
+
+<!-- Last Name Form Input -->
+<div class="form-group @if ($errors->has('last_name')) has-error @endif">
+  {!! Form::label('last_name', 'Nama Belakang') !!}
+  {!! Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Nama Belakang']) !!}
+  @if ($errors->has('last_name')) <p class="help-block">{{ $errors->first('last_name') }}</p> @endif
 </div>
 
 <!-- email Form Input -->
@@ -27,7 +34,7 @@
 </div>
 
 <!-- Permissions -->
-@if(isset($user))
+{{-- @if(isset($user))
 <div class="form-group">
   <label>Override Permissions</label>
 </div>
@@ -46,10 +53,10 @@
   <div class="col-md-3">
     <div class="checkbox">
       <label class="{{ Str::contains($perm->name, 'delete') ? 'text-danger' : '' }}">
-        {!! Form::checkbox("permissions[]", $perm->name, $per_found, isset($options) ? $options : []) !!} {{ $perm->name }}
-      </label>
-    </div>
-  </div>
-  @endforeach
+{!! Form::checkbox("permissions[]", $perm->name, $per_found, isset($options) ? $options : []) !!} {{ $perm->name }}
+</label>
 </div>
-@endif
+</div>
+@endforeach
+</div>
+@endif --}}

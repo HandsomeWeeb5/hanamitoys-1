@@ -86,7 +86,7 @@
               <tr>
                 <th>#</th>
                 <th>Item</th>
-                <th>Qty</th>
+                <th>Kuantitas</th>
                 <th>Total</th>
               </tr>
             </thead>
@@ -100,7 +100,7 @@
               </tr>
               @empty
               <tr>
-                <td colspan="6">Order item not found!</td>
+                <td colspan="6">Data Order Tidak Ditemukan!</td>
               </tr>
               @endforelse
             </tbody>
@@ -111,7 +111,7 @@
                 <li class="mid pb-3 text-dark">Subtotal
                   <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->base_total_price) }}</span>
                 </li>
-                <li class="mid pb-3 text-dark">Shipping Cost
+                <li class="mid pb-3 text-dark">Ongkos Kirim
                   <span class="d-inline-block float-right text-default">{{ \General::priceFormat($order->shipping_cost) }}</span>
                 </li>
                 <li class="pb-3 text-dark">Total

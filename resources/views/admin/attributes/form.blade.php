@@ -3,7 +3,7 @@
 @section('title', 'Tambah Atribut')
 
 @php
-$formTitle = !empty($category) ? 'Ubah' : 'Tambah';
+$formTitle = !empty($attribute) ? 'Ubah' : 'Tambah';
 $disableInput = !empty($attribute) ? true : false;
 @endphp
 
@@ -17,7 +17,7 @@ $disableInput = !empty($attribute) ? true : false;
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{ url('admin') }}">Home</a></li>
-          <li class="breadcrumb-item"><a href="{{ route('categories.index') }}">Atribut</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('attributes.index') }}">Atribut</a></li>
           <li class="breadcrumb-item active">{{ $formTitle }}</li>
         </ol>
       </div>
@@ -25,7 +25,7 @@ $disableInput = !empty($attribute) ? true : false;
     <div class="row">
       <div class="col-sm-12">
         <div class="float-sm-right">
-          <a href="{{ route('categories.index') }}" class="btn btn-secondary">Kembali</a>
+          <a href="{{ route('attributes.index') }}" class="btn btn-secondary">Kembali</a>
         </div>
       </div>
     </div>
@@ -47,18 +47,19 @@ $disableInput = !empty($attribute) ? true : false;
           <fieldset class="form-group">
             <div class="row">
               <div class="col-lg-12">
-                <legend class="col-form-label pt-0">General</legend>
+                <legend class="col-form-label pt-0">Umum</legend>
+                <hr>
                 <div class="form-group">
-                  {!! Form::label('code', 'Code') !!}
+                  {!! Form::label('code', 'Kode') !!}
                   {!! Form::text('code', null, ['class' => 'form-control', 'readonly' => $disableInput]) !!}
                 </div>
                 <div class="form-group">
-                  {!! Form::label('name', 'Name') !!}
+                  {!! Form::label('name', 'Nama') !!}
                   {!! Form::text('name', null, ['class' => 'form-control']) !!}
                 </div>
                 <div class="form-group">
-                  {!! Form::label('type', 'Type') !!}
-                  {!! Form::select('type', $types , null, ['class' => 'form-control', 'placeholder' => '-- Set Type --', 'readonly' => $disableInput]) !!}
+                  {!! Form::label('type', 'Tipe') !!}
+                  {!! Form::select('type', $types , null, ['class' => 'form-control', 'placeholder' => '-- Pilih Tipe --', 'readonly' => $disableInput]) !!}
                 </div>
               </div>
             </div>
@@ -66,17 +67,18 @@ $disableInput = !empty($attribute) ? true : false;
           <fieldset class="form-group">
             <div class="row">
               <div class="col-lg-12">
-                <legend class="col-form-label pt-0">Validation</legend>
+                <legend class="col-form-label pt-0">Validasi</legend>
+                <hr>
                 <div class="form-group">
-                  {!! Form::label('is_required', 'Is Required?') !!}
+                  {!! Form::label('is_required', 'Apa Diperlukan?') !!}
                   {!! Form::select('is_required', $booleanOptions , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                 </div>
                 <div class="form-group">
-                  {!! Form::label('is_unique', 'Is Unique?') !!}
+                  {!! Form::label('is_unique', 'Apa Unik?') !!}
                   {!! Form::select('is_unique', $booleanOptions , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                 </div>
                 <div class="form-group">
-                  {!! Form::label('validation', 'Validation') !!}
+                  {!! Form::label('validation', 'Validasi') !!}
                   {!! Form::select('validation', $validations , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                 </div>
               </div>
@@ -85,13 +87,14 @@ $disableInput = !empty($attribute) ? true : false;
           <fieldset class="form-group">
             <div class="row">
               <div class="col-lg-12">
-                <legend class="col-form-label pt-0">Configuration</legend>
+                <legend class="col-form-label pt-0">Konfigurasi</legend>
+                <hr>
                 <div class="form-group">
-                  {!! Form::label('is_configurable', 'Use in Configurable Product?') !!}
+                  {!! Form::label('is_configurable', 'Apa digunakan dalam Produk yang Dapat Dikonfigurasi?') !!}
                   {!! Form::select('is_configurable', $booleanOptions , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                 </div>
                 <div class="form-group">
-                  {!! Form::label('is_filterable', 'Use in Filtering Product?') !!}
+                  {!! Form::label('is_filterable', 'Apa digunakan dalam Memfilter Produk?') !!}
                   {!! Form::select('is_filterable', $booleanOptions , null, ['class' => 'form-control', 'placeholder' => '']) !!}
                 </div>
               </div>

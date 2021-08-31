@@ -90,9 +90,9 @@
                     <tr>
                       <th>#</th>
                       <th>Item</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Unit Cost</th>
+                      <th>Deskripsi</th>
+                      <th>Kuantitas</th>
+                      <th>Harga Perbarang</th>
                       <th>Total</th>
                     </tr>
                   </thead>
@@ -109,7 +109,7 @@
                     </tr>
                     @empty
                     <tr>
-                      <td colspan="6">Order item not found!</td>
+                      <td colspan="6">Data Order Tidak Ditemukan!</td>
                     </tr>
                     @endforelse
                     </tr>
@@ -151,31 +151,31 @@
               <div class="col-12">
                 @if (!$order->trashed())
                 @if ($order->isPaid() && $order->isConfirmed())
-                <a href="{{ url('admin/shipments/'. $order->shipment->id .'/edit')}}" class="btn mt-2 ml-1 float-right btn-lg btn-primary btn-pill"> Procced to Shipment</a>
+                <a href="{{ url('admin/shipments/'. $order->shipment->id .'/edit')}}" class="btn mt-2 ml-1 float-right btn-lg btn-primary btn-pill"> Proses Ke Pengiriman</a>
                 @endif
 
                 @if (in_array($order->status, [\App\Models\Order::CREATED, \App\Models\Order::CONFIRMED]))
-                <a href="{{ url('admin/orders/'. $order->id .'/cancel')}}" class="btn mt-2 ml-1 float-right btn-lg btn-warning btn-pill"> Cancel</a>
+                <a href="{{ url('admin/orders/'. $order->id .'/cancel')}}" class="btn mt-2 ml-1 float-right btn-lg btn-warning btn-pill"> Batal</a>
                 @endif
 
                 @if ($order->isDelivered())
                 <a href="#" class="btn mt-2 ml-1 float-right btn-lg btn-success btn-pill" onclick="event.preventDefault();
-						document.getElementById('complete-form-{{ $order->id }}').submit();"> Mark as Completed</a>
+						document.getElementById('complete-form-{{ $order->id }}').submit();"> Tandai Sebagai Selesai</a>
 
                 {!! Form::open(['url' => 'admin/orders/complete/'. $order->id, 'id' => 'complete-form-'. $order->id, 'style' => 'display:none']) !!}
                 {!! Form::close() !!}
                 @endif
 
                 @if (!in_array($order->status, [\App\Models\Order::DELIVERED, \App\Models\Order::COMPLETED]))
-                <a href="#" class="btn mt-2 ml-1 float-right btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Remove</a>
+                <a href="#" class="btn mt-2 ml-1 float-right btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Hapus</a>
 
                 {!! Form::open(['url' => 'admin/orders/'. $order->id, 'class' => 'delete', 'id' => 'delete-form-'. $order->id, 'style' => 'display:none']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}
                 {!! Form::close() !!}
                 @endif
                 @else
-                <a href="{{ url('admin/orders/restore/'. $order->id)}}" class="btn mt-2 ml-1 float-right btn-lg btn-outline-secondary btn-pill restore"> Restore</a>
-                <a href="#" class="btn mt-2 ml-1 float-right btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Remove Permanently</a>
+                <a href="{{ url('admin/orders/restore/'. $order->id)}}" class="btn mt-2 ml-1 float-right btn-lg btn-outline-secondary btn-pill restore"> Kembalikan</a>
+                <a href="#" class="btn mt-2 ml-1 float-right btn-lg btn-danger btn-pill delete" order-id="{{ $order->id }}"> Hapus Permanen</a>
 
                 {!! Form::open(['url' => 'admin/orders/'. $order->id, 'class' => 'delete', 'id' => 'delete-form-'. $order->id, 'style' => 'display:none']) !!}
                 {!! Form::hidden('_method', 'DELETE') !!}

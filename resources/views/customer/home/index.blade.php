@@ -98,7 +98,7 @@
                     {{ Str::limit($product->name, 25) }}
                   </a>
                 </h4>
-                <p class="price">@currency($product->price_label())</p>
+                <p class="price">@currency($product->priceLabel())</p>
               </div>
             </section>
           </div>

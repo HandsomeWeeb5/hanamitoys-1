@@ -31,8 +31,8 @@
               <label>Type Figure</label>
               <select class="form-control" name="tf">
                 <option value="">-- Pilih --</option>
-                @foreach($types as $type)
-                <option value="{{ $type->id }}" {{ $type->id == $tf ? 'selected' : '' }}>{{ $type->name }}</option>
+                @foreach($figures as $figure)
+                <option value="{{ $figure->id }}" {{ $figure->id == $tf ? 'selected' : '' }}>{{ $figure->name }}</option>
                 @endforeach
               </select>
             </div>

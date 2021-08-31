@@ -29,18 +29,20 @@
     <div class="text-group2 row">
       <div class="appointment col-md-6">
         <h3>MAKE AN APPOINTMENT</h3>
-        <form id="form-color">
+        @include('admin.components.flash')
+        <form action="{{ route('contact.store') }}" id="form-color" method="POST">
+          @csrf
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Name" id="name" />
+            <input type="text" class="form-control" placeholder="Name" id="name" name="name">
           </div>
           <div class="form-group">
-            <input type="email" class="form-control" placeholder="Email" id="email" />
+            <input type="email" class="form-control" placeholder="Email" id="email" name="email">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="Subject" id="email" />
+            <input type="text" class="form-control" placeholder="Subject" id="email" name="subject">
           </div>
           <div class="form-group">
-            <textarea class="form-control" id="message" rows="7" placeholder="Message"></textarea>
+            <textarea class="form-control" id="message" rows="7" placeholder="Message" name="message"></textarea>
           </div>
           <div class="form-group invalid-feedback">
             Pesan yang dikirim tidak boleh kosong.

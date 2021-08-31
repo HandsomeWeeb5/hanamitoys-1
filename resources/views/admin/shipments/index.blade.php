@@ -40,19 +40,19 @@
         <table id="dataTable" class="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>Order ID</th>
-              <th>Name</th>
+              <th>No</th>
+              <th>Nama</th>
               <th>Status</th>
-              <th>Total Qty</th>
-              <th>Total Weight (gram)</th>
-              <th>Action</th>
+              <th>Total Kuantitas</th>
+              <th>Total Berat (gram)</th>
+              <th>Aksi</th>
             </tr>
           </thead>
           <tbody>
-            @forelse ($shipments as $shipment)
+            @forelse ($shipments as $index => $shipment)
             <tr>
               <td>
-                {{ $shipment->order->code }}<br>
+                {{ $index + 1 }}<br>
                 <span style="font-size: 12px; font-weight: normal"> {{\General::datetimeFormat($shipment->order->order_date) }}</span>
               </td>
               <td>{{ $shipment->order->customer_full_name }}</td>
